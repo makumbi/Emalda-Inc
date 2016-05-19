@@ -37,7 +37,7 @@ a, a:focus, a:hover, a:active {
 	text-decoration: none;
 }
 
-/*Selected text color*/
+/*Selected text color */
 ::-moz-selection{
 	color: #fff;
 	background: #000;
@@ -65,10 +65,16 @@ a, a:focus, a:hover, a:active {
 ---------------------------------------------------------------------------*/
 
 .header-height {
-/* 	height: 123px; */
+ 	height: 500px; 
 }
 
 .jumbotron {
-	background-color: green;	
-	color: green;
+	position: relative;
+	height: 500px;
+	background-color: brown;	
+	color: white;
+}
+
+.position-text{
+	margin: 100px auto;
 }
