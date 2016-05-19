@@ -28,8 +28,41 @@
 <style>
 	@import url('resources/css/styles.css');                                           /* Custom styles */
 </style>
-<body>    
-
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">    
+<!-- ************************* NavBar ****************************** -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+     </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#myPage">HOME</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#products">PRODUCTS</a></li>
+        <li><a href="#farmers">FARMERS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+          <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#price">Price</a></li>
+            <li><a href="#">Media</a></li> 
+          </ul>
+         </li>
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+       </ul>
+    </div>
+  </div>
+</nav>
+<!-- ************************* End NavBar *************************** -->
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
 	<div class="jumbotron text-center">  
@@ -45,6 +78,7 @@
 </header><!--**************************End Header*****************************-->
 <!--**************************Begin About Company Page*****************************-->
 <section class="action-about">
+	<div id="about" class="container">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-8">
@@ -71,9 +105,11 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </section> <!--**************************End About Company Page*****************************--> 
 <!--**************************Begin Company Products*****************************-->
 <section class="action-products">
+<div id="products" class="container">
 <div class="container-fluid text-center">
   <h2>PRODUCTS</h2>
   <h4>What products we offer</h4>
@@ -114,8 +150,10 @@
     </div>
   </div>
 </div>
+</div>
 </section> <!--**************************End Company Products*****************************-->
 <!--**************************Begin Our Farmers*****************************-->
+<div id="farmers" class="container">
 <div class="container-fluid text-center bg-grey">
   <h2>Our Farmers</h2>
   <h4>Farmers that partner with us</h4>
@@ -143,9 +181,9 @@
     </div>
 </div>
 </div>
+</div>
 <!--**************************End Our Farmers*****************************-->
 <!-- *************************What customers say************************* -->
-
 <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
 <h2>What our customers say</h2>
   <!-- Indicators -->
@@ -180,6 +218,7 @@
 </div>
 <!-- *************************End what customers say********************* -->
 <!-- ************************ Product Pricing *************************** -->
+<div id="price" class="container">
 <div class="container-fluid">
   <div class="text-center">
     <h2>Pricing</h2>
@@ -245,8 +284,10 @@
     </div> 
   </div>
 </div>
+</div>
 <!-- ************************* End Product Pricing *************************** -->
 <!-- ************************* Contact Form ********************************** -->
+<div id="contact" class="container">
 <form action="random_page.php" method="post" target="_blank" accept-charset="UTF-8"
 		enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
 <div class="container-fluid bg-grey">
@@ -278,12 +319,13 @@
     </div>
   </div>
 </div>
-</form>   
+</form>
+</div>   
 <!-- ************************* End Contact Form ****************************** -->
 
 <!-- Add Google Maps -->
 <!-- Set height and width with CSS -->
-<div id="googleMap" style="height:400px;width:100%;"></div>           
+<div id="googleMap" style="height:510px;width:100%;"></div>           
 
 <script>
 var myCenter = new google.maps.LatLng(38.8492, -77.3327);
@@ -309,8 +351,6 @@ position:myCenter,
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
-
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>	<!--Script jQuery-->
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script> 	<!--Script jQuery-->
 <script src="js/vendor/jquery-migrate.js"></script>								<!--Script jQuery for old version jQuery-->
@@ -326,6 +366,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <script type="text/javascript" src="js/vendor/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="js/jquery.timelineG.js"></script>
 <script src="js/custom.js"></script>											<!--Script Custom-->
+
 <script>
 $(document).ready(function() {
 
