@@ -21,7 +21,7 @@ body {
 
 /* General typography */
 h1, h2, h3, h4, h5, h6, p {
-	margin: 0;
+	margin: 20px;
 	font-family: "PT Sans";
 	font-weight: 400;
 }
@@ -70,7 +70,8 @@ a, a:focus, a:hover, a:active {
 
 .jumbotron {
 	position: relative;
-	height: 500px;
+/*	height: 500px;*/
+	padding: 65px 25px;
 	background-color: brown;	
 	color: white;
 }
@@ -78,3 +79,50 @@ a, a:focus, a:hover, a:active {
 .position-text{
 	margin: 100px auto;
 }
+
+/*---------------------------------------------------------------------------
+						End Header
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin About Company Page
+---------------------------------------------------------------------------*/
+.action-about {
+/*	background: url(../img/call-to-action-bg-mini.jpg) center top repeat-x;
+	-webkit-box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	-moz-box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	height: 389px;
+	background-color:#ccc;*/
+}
+
+.bg-grey {
+	background-color: lightgrey;
+}
+
+.container-fluid {
+	padding: 60px 50px;
+}
+
+.logo {
+	font-size: 200px;
+}
+/* center the "logo column" on screens smaller than 768 pixels wide */
+@media screen and (max-width: 768px) {
+	.col-sm-4 {
+		text-align: center;
+		margin: 25px 0;
+	}
+}
+
+/*---------------------------------------------------------------------------
+						End About Company Page
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Company Products
+---------------------------------------------------------------------------*/
+
+
+
+
+
+
