@@ -83,11 +83,11 @@ function validateForm() {
 			<div class="position-text"> 
 				<h1>Emalda Inc.</h1>
 				<p>We import fresh foods from African farmers to your door step</p>
-				<form class="form-inline" name="ourDeals"
-					onsubmit="return validateForm()" method="post" action="email-validation.php" autocomplete="off">Get Deals:
+	 			<form class="form-inline" name="ourDeals"
+					onsubmit="return validateForm()" method="post" action="email_validation.php" autocomplete="off">Get Deals:
 					<input type="email" name="emails" class="form-control" placeholder="Email Address" size="50">
 					<button type="submit" class="btn btn-danger" value="Submit">Sign Up</button>
-				</form>
+				</form> 
 			</div>
 		</div> 	
 </header><!--**************************End Header*****************************-->
@@ -303,8 +303,8 @@ function validateForm() {
 <!-- ************************* End Product Pricing *************************** -->
 <!-- ************************* Contact Form ********************************** -->
 <div id="contact" class="container">
-<form action="random_page.php" method="post" target="_blank" accept-charset="UTF-8"
-		enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
+<form action="contact_validation.php" method="post" accept-charset="UTF-8"
+		enctype="application/x-www-form-urlencoded" autocomplete="off">
 <div class="container-fluid bg-grey">
   <h2 class="text-center">CONTACT</h2>
   <div class="row">
@@ -318,7 +318,10 @@ function validateForm() {
       <div class="row">
       
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          <input class="form-control" id="fname" name="fname" placeholder="First Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="lname" name="lname" placeholder="Last Name" type="text" required>
         </div>
         <div class="col-sm-6 form-group">
           <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
