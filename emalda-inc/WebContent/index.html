@@ -21,6 +21,16 @@
 <script src="http://maps.googleapis.com/maps/api/js"></script>                          <!-- Add Google Maps -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+// Validate emails to receive deals
+function validateForm() {
+    var x = document.forms["ourDeals"]["emails"].value;
+    if (x == null || x == "") {
+        alert("A valid email must be filled out");
+        return false;
+    }
+}
+</script>
   <!-- HTML5 shim for IE backwards compatibility -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -69,16 +79,17 @@
 <!-- ************************* End NavBar *************************** -->
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-	<div class="jumbotron text-center">  
-		<div class="position-text"> 
-			<h1>Emalda Inc.</h1>
-			<p>We import fresh foods from African farmers directly to your house</p>
-			<form class="form-inline">Get Deals:
-				<input type="email" class="form-control" size="50" placeholder="Email Address">
-				<button type="button" class="btn btn-danger">Sign Up</button>
-			</form>
-		</div> 
-	</div>	
+		<div class="jumbotron text-center"> 
+			<div class="position-text"> 
+				<h1>Emalda Inc.</h1>
+				<p>We import fresh foods from African farmers to your door step</p>
+				<form class="form-inline" name="ourDeals"
+					onsubmit="return validateForm()" method="post">Get Deals:
+					<input type="email" name="emails" class="form-control" placeholder="Email Address" size="50">
+					<button type="submit" class="btn btn-danger" value="Submit">Sign Up</button>
+				</form>
+			</div>
+		</div> 	
 </header><!--**************************End Header*****************************-->
 <!--**************************Begin About Company Page*****************************-->
 <section class="action-about">
