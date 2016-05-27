@@ -17,7 +17,7 @@
 	
 		// Define the Query
 		// For Windows MYSQL String is case insensitive
-		$Myquery = "SELECT count(*) as count from Email_Deals
+		$Myquery = "SELECT count(*) as count from EmailDeals
 		   where email=?";
 	
 		$result = $mysqli -> prepare($Myquery);
@@ -34,19 +34,14 @@
 		return $count;
 	}
 	
-	function insertContact ($contact)
+	function insertContact ($firstname, $lastname, $contactEmail, $comment)
 	{
 	
 		// Connect to the database
 		$mysqli = connectdb();
 	
-		$firstname = $contact->getFirstname();
-		$lastname = $contact->getLastname();
-		$contactEmail = $contact->getContactEmail();
-		$comment = $contact->getComment();
-	
 		// Now we can insert
-		$Query = "INSERT INTO Customer_Contact
+		$Query = "INSERT INTO CustomerContact
 	          (firstName,lastName,eMail,comment)
 	           VALUES (?,?,?,?)";
 	
