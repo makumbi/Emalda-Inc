@@ -128,7 +128,7 @@ a, a:focus, a:hover, a:active {
 
 .jumbotron {
 /*  position: relative; */
-/*  background: url(WebContent/images/we-farm-hero[1].jpg) no-repeat center center;*/
+  background: url(emalda-inc/WebContent/images/we-farm-hero[1].jpg);
 /*  background-attachment: fixed; */
   margin-top: 0px;
   margin-bottom: 0px;
