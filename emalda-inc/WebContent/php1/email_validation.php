@@ -29,10 +29,15 @@
 	if ($count==0)
 	{
 		// Show main page again.
+
+		// Ther function actually adding the email to the DB goes here!
+		
 		include('index.html');
 		
 		/* create function/statement that acknowledges that
-		 email was succesfully stored into DB */
+		 email was succesfully stored into DB and also gives
+		 the customer the opportunity to make an account if 
+		 they would like */
 	} else {
 		
 	   $emailErr = "Email already exists. Please try another email address";
