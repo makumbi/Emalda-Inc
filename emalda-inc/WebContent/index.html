@@ -24,9 +24,9 @@
 <script>
 // Validate emails to receive deals
 function validateForm() {
-    var x = document.forms["ourDeals"]["emails"].value;
+    var x = document.forms["userSearch"]["user_query"].value;
     if (x == null || x == "") {
-        alert("A valid email must be filled out");
+        alert("Please search a product");
         return false;
     }
 }
@@ -85,10 +85,10 @@ function validateForm() {
 			<div class="position-text"> 
 				<h1>Emalda Inc.</h1>
 				<p>We import fresh foods from African farmers to your door step</p>
-	 			<form class="form-inline" name="ourDeals"
-					onsubmit="return validateForm()" method="post" action="email_validation.php" autocomplete="off">Get Deals:
-					<input type="email" name="emails" class="form-control" placeholder="Email Address" size="50">
-					<button type="submit" class="btn btn-danger" value="Submit">Sign Up</button>
+	 			<form class="form-inline" name="userSearch"
+					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
+					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
+					<button type="submit" class="btn btn-danger" value="Submit">Search</button>
 				</form> 
 			</div>
 		</div> 	
