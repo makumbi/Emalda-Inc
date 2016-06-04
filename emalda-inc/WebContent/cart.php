@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php
+
+session_start();
+
 include("sql/SQLFunctions.php");
 ?>
+
+	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
 <head>
 	<title>Emalda Inc.</title>												<!--Change Title-->
@@ -144,11 +148,32 @@ function validateForm() {
   			<td><?php echo $product_title; ?><br>
   			<img src="admin_area/product_images/<?php echo $product_image;?>" width="60" height="60">
   			</td>
-  			<td><input type="text" size="3" name="qty"></td>
+  			<td><input type="text" size="3" name="qty" value="<?php echo $qty; ?>"></td>
+  			
+	  		<?php
+	  			
+		  		if(isset($_POST['update_cart'])){
+		  				
+		  			$qty = $_POST['qty'];
+		  				
+		  			$update_qty = "UPDATE cart SET qty='$qty'";
+		  			$run_qty = mysqli_query($con, $update_qty);
+		  				
+		  			$_SESSION['qty'] = $qty;
+		  				
+		  			$total = $total*$qty;
+		  				
+		  		}
+	  			
+	  		?>	
+  			
+  			
   			<td><?php echo "$" . $single_price;?></td>
   		</tr>
   		
-  		<?php } } ?>
+  		<?php } 
+
+		} ?>
   		
   		<tr align="right">
   			<td colspan="4"><b>Sub Total</b></td>
@@ -165,29 +190,36 @@ function validateForm() {
    
    <?php 
 
-   
-	$ip = getIp();
-   
-   	if(isset($_POST['update_cart'])){
+  // function updatecart(){
 
-		foreach($_POST['remove'] as $remove_id){
-			
-			$delete_product = "DELETE FROM cart WHERE p_id='$remove_id' AND ip_add='$ip'";			
-			$run_delete = mysqli_query($con, $delete_product);
-			
-			if($run_delete){
-				echo "<script>window.open('cart.php', '_self')</script>";
+		global $con;
+		$ip = getIp();
+	   
+	   	if(isset($_POST['update_cart'])){
+	
+			foreach($_POST['remove'] as $remove_id){
+				
+				$delete_product = "DELETE FROM cart WHERE p_id='$remove_id' AND ip_add='$ip'";			
+				$run_delete = mysqli_query($con, $delete_product);
+				
+				if($run_delete){
+					echo "<script>window.open('cart.php', '_self')</script>";
+				}
+	
 			}
-
+	   
+	   	}
+	   	
+	   	if(isset($_POST['continue'])){
+	
+			echo "<script>window.open('index.php#products', '_self')</script>";
 		}
-   
-   	}
-   	
-   	if(isset($_POST['continue'])){
-
-		echo "<script>window.open('index.php#products', '_self')</script>";
-	}
-   
+		
+		// Added an @ so that updatecart function is not invoked
+		// when qty is posted
+		echo $up_cart = updatecart();
+	   
+	// }
    
    ?>
    
