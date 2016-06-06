@@ -2,6 +2,8 @@
 	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php
+// Retrieves SQLFunctions php page and includes it to this page (index.php)
+// Functions in SQLFunctions will be called upon
 include("sql/SQLFunctions.php");
 ?>
 
@@ -9,7 +11,7 @@ include("sql/SQLFunctions.php");
 	<title>Emalda Inc.</title>												<!--Change Title-->
 <meta charset="utf-8">
 	<!--[if lt IE 8]>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  				
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<![endif]-->																	<!--Edge mode for IE8+-->
 <meta name="description" content="describe your page">							<!--Update content-->
 <meta name="keywords" content="">												<!--Update content-->
@@ -19,16 +21,17 @@ include("sql/SQLFunctions.php");
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">								<!--Bootstrap styles-->
 <link rel="stylesheet" href="resources/css/bootstrap-responsive.min.css">						<!--Bootstrap styles-->
 <link rel="stylesheet" href="resources/css/colorbox.css">
-<!-- <link rel="stylesheet" type="text/css" href="resources/css/styles.css">									
+<!-- <link rel="stylesheet" type="text/css" href="resources/css/styles.css">
 <link rel="stylesheet" href="resources/css/retina.css">									<!--Retina styles-->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="http://maps.googleapis.com/maps/api/js"></script>                          <!-- Add Google Maps -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script>
-// Validate emails to receive deals
+// function checks whether user has inserted a query before it is excuted
 function validateForm() {
     var x = document.forms["userSearch"]["user_query"].value;
+		// If the document.form has empty value, alert is thrown notifying user
     if (x == null || x == "") {
         alert("Please search a product");
         return false;
@@ -42,9 +45,9 @@ function validateForm() {
 <style>
 	@import url('resources/css/styles.css');                                           /* Custom styles */
 </style>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">  
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 <!--****************** Added cart PHP function **************************-->
-<?php cart(); ?>  
+<?php cart(); ?>
 <!-- ************************* NavBar ****************************** -->
 <!-- The Nav Bar should always be above the "Emalda Inc." title  -->
 <!-- The Nav Bar should get smaller when someone scrolls down, and get bigger when they scroll up //navbar-default navbar-fixed-top -->
@@ -54,7 +57,7 @@ function validateForm() {
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">Logo</a>
      </div>
@@ -77,17 +80,17 @@ function validateForm() {
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-		<div class="jumbotron text-center"> 
-			<div class="position-text"> 
+		<div class="jumbotron text-center">
+			<div class="position-text">
 				<h1>Emalda Inc.</h1>
 				<p>We import fresh foods from African farmers to your door step</p>
 	 			<form class="form-inline" name="userSearch"
 					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
 					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
 					<button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
-				</form> 
+				</form>
 			</div>
-		</div> 	
+		</div>
 </header><!--**************************End Header*****************************-->
 
 <!--**************************Begin About Company Page*****************************-->
@@ -106,7 +109,7 @@ function validateForm() {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="container-fluid bg-grey">
 		<div class="row">
 			<div class="col-sm-4">
@@ -120,20 +123,24 @@ function validateForm() {
 		</div>
 	</div>
 	</div>
-</section> <!--**************************End About Company Page*****************************--> 
+</section> <!--**************************End About Company Page*****************************-->
 <!--**************************Begin Company Products*****************************-->
 <section class="action-products">
 <div id="products" class="container">
 <div class="container-fluid text-center">
    <h2><a id="products">PRODUCTS</h2>
   <div class="products_box">
-  
-  	<?php getProduct(); ?>
-  
-  </div> 
+
+  	<?php
+		// using SQLFunctions, we are able to call getProduct function
+	 	// Which displays products present in the database
+		getProduct();
+		 ?>
+
+  </div>
 </div>
 </div>
-</section> 
+</section>
 <!--**************************End Company Products*****************************-->
 <!--**************************Begin Our Farmers*****************************-->
 <div id="farmers" class="container">
@@ -200,75 +207,7 @@ function validateForm() {
   </a>
 </div>
 <!-- *************************End what customers say********************* -->
-<!-- ************************ Product Pricing *************************** -->
-<div id="price" class="container">
-<div class="container-fluid">
-  <div class="text-center">
-    <h2>Pricing</h2>
-    <h4>Choose a payment plan that works for you</h4>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h1>Basic</h1>
-        </div>
-        <div class="panel-body">
-          <p><strong>20</strong> Lorem</p>
-          <p><strong>15</strong> Ipsum</p>
-          <p><strong>5</strong> Dolor</p>
-          <p><strong>2</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
-        </div>
-        <div class="panel-footer">
-          <h3>$19</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
-        </div>
-      </div> 
-    </div> 
-    <div class="col-sm-4">
-      <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h1>Pro</h1>
-        </div>
-        <div class="panel-body">
-          <p><strong>50</strong> Lorem</p>
-          <p><strong>25</strong> Ipsum</p>
-          <p><strong>10</strong> Dolor</p>
-          <p><strong>5</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
-        </div>
-        <div class="panel-footer">
-          <h3>$29</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
-        </div>
-      </div> 
-    </div> 
-   <div class="col-sm-4">
-      <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h1>Premium</h1>
-        </div>
-        <div class="panel-body">
-          <p><strong>100</strong> Lorem</p>
-          <p><strong>50</strong> Ipsum</p>
-          <p><strong>25</strong> Dolor</p>
-          <p><strong>10</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
-        </div>
-        <div class="panel-footer">
-          <h3>$49</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
-        </div>
-      </div> 
-    </div> 
-  </div>
-</div>
-</div>
-<!-- ************************* End Product Pricing *************************** -->
+
 <!-- ************************* Contact Form ********************************** -->
 <div id="contact" class="container">
 <form action="contact_validation.php" method="post" accept-charset="UTF-8"
@@ -280,11 +219,11 @@ function validateForm() {
       <p>Contact us and we'll get back to you within 24 hours.</p>
       <p><span class="glyphicon glyphicon-map-marker"></span> Fairfax, US</p>
       <p><span class="glyphicon glyphicon-phone"></span> +00 1515151515</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> emalda@gmail.com</p> 
+      <p><span class="glyphicon glyphicon-envelope"></span> emalda@gmail.com</p>
     </div>
     <div class="col-sm-7">
       <div class="row">
-      
+
         <div class="col-sm-6 form-group">
           <input class="form-control" id="fname" name="fname" placeholder="First Name" type="text" required>
         </div>
@@ -300,18 +239,18 @@ function validateForm() {
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit" value="Submit">Send</button>
         </div>
-      </div> 
-     
+      </div>
+
     </div>
   </div>
 </div>
 </form>
-</div>   
+</div>
 <!-- ************************* End Contact Form ****************************** -->
 
 <!-- Add Google Maps -->
 <!-- Set height and width with CSS -->
-<div id="googleMap" style="height:510px;width:100%;"></div>           
+<div id="googleMap" style="height:510px;width:100%;"></div>
 
 <script>
 var myCenter = new google.maps.LatLng(38.8492, -77.3327);
@@ -342,7 +281,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a><br><br>
-  <p>Theme Made By <a href="#" data-toggle="tooltip" title="Visit makumbi-srv">www.makumbi-srv.com</a></p> 
+  <p>Theme Made By <a href="#" data-toggle="tooltip" title="Visit makumbi-srv">www.makumbi-srv.com</a></p>
   <div class="copyright pull-center">
 	<p>&copy; Emalda Inc., 2016. All rights reserved. </p>
 	<p>web by: <a href="#" target="_blank" data-toggle="tooltip">emalda.com</a></p>
@@ -369,7 +308,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <script>
 $(document).ready(function(){
     // Initialize Tooltip
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 })
 
 $(document).ready(function() {
@@ -426,7 +365,7 @@ $(document).ready(function(){
 	      // Add hash (#) to URL when done scrolling (default click behavior)
 	       window.location.hash = hash;
 	      });
-	    } // End if 
+	    } // End if
 	});
 })
 </script>

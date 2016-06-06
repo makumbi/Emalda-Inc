@@ -10,13 +10,13 @@ font-weight: 400italic;
 -------------------------------------*/
 
 /* Begin general body settings */
-body {	 
+body {
 	font-family: "PT Sans";
 	font-weight: 400;
 	padding: 0px !important;
 	margin: 0px !important;
 	font-size:14px;
-	color: #212c43; 
+	color: #212c43;
 	letter-spacing: 1px;
     opacity:0.9;
 }
@@ -61,14 +61,14 @@ a, a:focus, a:hover, a:active {
 ::selection{
 	color: #fff;
 	background: #000;
-}	 
+}
 /* End general body settings */
 
 /*---------------------------------------------------------------------------
 						Begin NavBar
 ---------------------------------------------------------------------------*/
 
-/* Add a dark background color with a little bit see-through */ 
+/* Add a dark background color with a little bit see-through */
 .navbar {
 	margin-top: 0px;
     margin-bottom: 0px;
@@ -84,7 +84,7 @@ a, a:focus, a:hover, a:active {
 }*/
 
 /* Add a gray color to all navbar links */
-.navbar li a, .navbar .navbar-brand { 
+.navbar li a, .navbar .navbar-brand {
     color: #d5d5d5 !important;
     height: 1px;
 }
@@ -130,7 +130,6 @@ a, a:focus, a:hover, a:active {
 
 .header-height {
  	height: 500px; 
- 	margin-bottom: 0px;
 }
 
 .jumbotron {
@@ -197,10 +196,10 @@ a, a:focus, a:hover, a:active {
 	margin-bottom: 10px;
 }
 
-#single_product {	
+#single_product {
 	float: left;
 	margin-left: 30px;
-	padding: 10px;	
+	padding: 10px;
 }
 
 #single_product img {border: 2px solid black;}
@@ -280,7 +279,7 @@ a, a:focus, a:hover, a:active {
 ---------------------------------------------------------------------------*/
 
 .panel {
-    border: 1px solid #f4511e; 
+    border: 1px solid #f4511e;
     border-radius:0;
     transition: box-shadow 0.5s;
 }
@@ -355,11 +354,3 @@ footer a:hover {
 /*---------------------------------------------------------------------------
 						End Footer
 ---------------------------------------------------------------------------*/
-
-
-
-
-
-
-
-
