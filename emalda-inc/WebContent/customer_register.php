@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <?php
+// Start Session
+session_start();
 // Retrieves SQLFunctions php page and includes it to this page (index.php)
 // Functions in SQLFunctions will be called upon
 include("sql/SQLFunctions.php");
-// Include database
+// Connect to database
 include("includes/db.php");
+
 ?>
 	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -71,7 +74,7 @@ function validateForm() {
         <li><a href="index.php#contact">CONTACT</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="customer/my_account.php"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
         <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart >> Items:<?php total_items();?> Price:<?php total_price();?></a></li>
       </ul>
     </div>
@@ -307,34 +310,79 @@ $(document).ready(function(){
 </html>
 <!-- Localized -->
 <?php
+
   if(isset($_POST['register'])){
+			// Retrieves and stores USER IP Address
+			$ip = getIp();
 
-      // Retrieves and stores USER IP Address
-      $ip = getIp();
+			$c_name = $_POST['c_name'];
+			$c_email = $_POST['c_email'];
+			$c_pass = $_POST['c_pass'];
+			$c_address = $_POST['c_address'];
+			$c_city = $_POST['c_city'];
+			$c_country = $_POST['c_country'];
+			$c_image = $_FILES['c_image']['name'];
+			$c_image_tmp = $_FILES['c_image']['tmp_name'];
+			$c_contact = $_POST['c_contact'];
 
-      $c_name = $_POST['c_name'];
-      $c_email = $_POST['c_email'];
-      $c_pass = $_POST['c_pass'];
-      $c_address = $_POST['c_address'];
-      $c_city = $_POST['c_city'];
-      $c_country = $_POST['c_country'];
-      $c_image = $_FILES['c_image']['name'];
-      $c_image_tmp = $_FILES['c_image']['tmp_name'];
-      $c_contact = $_POST['c_contact'];
-
-      // moves uploaded files into folder called customer_images
-      move_uploaded_file($c_image_tmp, "customer/customer_images/$c_image");
       // Insert into customer table values ('$ip', '$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image')
-      $insert_c = "INSERT INTO customers (customer_ip, customer_ name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image)
-      VALUES ('$ip', '$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image')";
-      // Run query
-      $run_customer_query = mysqli_query($con, $insert_c);
-      // Checks whether $run_customer_query was successful
-      // If the query is successful a JavaScript alert is echoed alerting user registration was successful
-      if($run_customer_query){
-        echo "<script>alert('Registration successful!')</script>";
-      }
+			$insert_c = "INSERT INTO customers (customer_ip, customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image)
+      VALUES (?,?,?,?,?,?,?,?,?)";
 
-  }
+			// Create prepared statement
+			if($stmt = $con -> prepare($insert_c)){
+
+					// moves uploaded files into folder called customer_images
+					move_uploaded_file($c_image_tmp, "customer/customer_images/$c_image");
+
+					// bind parameters for makers
+					$stmt ->bind_param('sssssssss', $ip, $c_name, $c_email, $c_pass, $c_country, $c_city, $c_contact, $c_address, $c_image);
+
+					// execute query
+					$stmt ->execute();
+
+					// Insect all from cart table where IP addess is equal to user's IP
+		      $sel_cart = "SELECT * FROM cart WHERE ip_add=?";
+
+					if($stmt = $con -> prepare($sel_cart)){
+
+						// bind parameters for makers
+						$stmt ->bind_param('s', $ip);
+
+						// execute query
+						$stmt ->execute();
+
+						// store results
+						$result = $stmt -> store_result();
+
+						// Check where the cart has rows
+			      // If it has rows, it means user has items in cart
+    				$check_cart = $result -> num_rows;
+
+			      if($check_cart == 0){
+
+			        // Register User Session
+			        $_SESSION['customer_email'] = $c_email;
+
+			        echo "<script>alert('Account has been created successfully, thanks!')</script>";
+			        echo "<script>window.open('customer/my_account.php', '_self')</script>";
+			      } else {
+
+			        // Register User Session
+			        $_SESSION['customer_email'] = $c_email;
+
+			        echo "<script>alert('Account already exists')</script>";
+			        echo "<script>window.open('checkout.php', '_self')</script>";
+			      }
+
+  			}
+				// free results
+				$stmt ->free_result();
+				// close statement
+				$stmt ->close();
+			}
+// close connection
+$con -> close();
+}
 
 ?>

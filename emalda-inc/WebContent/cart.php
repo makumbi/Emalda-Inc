@@ -73,20 +73,31 @@ function validateForm() {
         <li><a href="index.php#contact">CONTACT</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="customer/my_account.php"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
         <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart >> Items:<?php total_items();?> Price:<?php total_price();?></a></li>
+				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log-out</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- ************************* End NavBar *************************** -->
+<?php
+	if(isset($_SESSION['customer_email'])){
 
+		$user = $_SESSION['customer_email'];
+
+	}else {
+
+		$user = "Guest";
+	}
+
+?>
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
 		<div class="jumbotron text-center">
 			<div class="position-text">
-				<h1>Cart</h1>
-				<p>We import fresh foods from African farmers to your door step</p>
+				<h2>Welcome: <?php echo $user;?> </h2>
+				<p>Shopping cart!</p>
 	 			<form class="form-inline" name="userSearch"
 					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
 					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
@@ -173,9 +184,6 @@ function validateForm() {
 					type="text" size="3" name="<?php echo $pro_id; ?>"
 					value="<?php $counter = $counter + 1; echo $counter;  ?>"></td>
 
-					<p id="phpTest"> </p>
-
-
 					<script>
 
 						var arr;
@@ -239,7 +247,7 @@ function validateForm() {
   			<td colspan="2"><input     onclick="myFunction2()"
 					type="submit" name="update_cart" value="Update Cart"></td>
   			<td><input type="submit" name="continue" value="Continue Shopping"></td>
-  			<td><button><a href="checkout.php" style="text-decoration: none; color:black;">Checkout</a></button></td>
+  			<td><a href="checkout.php" style="text-decoration: none; color:black;">Checkout</a></td>
   		</tr>
   	</table>
   </form>

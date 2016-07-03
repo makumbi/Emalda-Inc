@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+  if(!isset($_SESSION['user_email'])){
+      echo "<script>window.open('login.php?not_admin=You are not an Admin!', '_self')</script>";
+  }
+  else{
+
+?>
 <html>
 <head>
 	<title>Insert Product</title>
@@ -8,48 +15,52 @@
 tinymce.init({ selector:'textarea' });
 </script>
 </head>
-<body bgcolor="skyblue">
+<body>
+	<div class="row">
+	  <div class="col-sm-9">
+					<form action="insert_product.php" method="POST" enctype="multipart/form-data">
+						<table align="center" width="740" border="2" bgcolor="yellow">
 
-	<form action="insert_product.php" method="POST" enctype="multipart/form-data">
-		<table align="center" width="750" border="2" bgcolor="orange">
+							<tr align="center">
+								<td colspan="8"><h2>Insert New Product Here</h2></td>
+							</tr>
 
-			<tr align="center">
-				<td colspan="8"><h2>Insert New POST Here</h2></td>
-			</tr>
+							<tr>
+								<td align="center"><b>Product Title:</b></td>
+								<td><input type="text" name="product_title" size="60" required></td>
+							</tr>
 
-			<tr>
-				<td align="right"><b>Product Title:</b></td>
-				<td><input type="text" name="product_title" size="60" required></td>
-			</tr>
+							<tr>
+								<td align="center"><b>Product Price:</b></td>
+								<td><input type="text" name="product_price" required></td>
+							</tr>
 
-			<tr>
-				<td align="right"><b>Product Price:</b></td>
-				<td><input type="text" name="product_price" required></td>
-			</tr>
-
-			<tr>
-				<td align="right"><b>Product Image:</b></td>
-				<td><input type="file" name="product_image"></td>
-			</tr>
+							<tr>
+								<td align="center"><b>Product Image:</b></td>
+								<td><input type="file" name="product_image"></td>
+							</tr>
 
 
-			<tr>
-				<td align="right"><b>Product Discription:</b></td>
-				<td><textarea name="product_desc" cols="20" rows="10"></textarea></td>
-			</tr>
+							<tr>
+								<td align="center"><b>Product Description:</b></td>
+								<td><textarea name="product_desc" cols="20" rows="10"></textarea></td>
+							</tr>
 
-			<tr>
-				<td align="right"><b>Product Keywords:</b></td>
-				<td><input type="text" name="product_keywords" size="50"></td>
-			</tr>
+							<tr>
+								<td align="center"><b>Product Keywords:</b></td>
+								<td><input type="text" name="product_keywords" size="50"></td>
+							</tr>
 
-			<tr align="center">
-				<td colspan="8"><input type="submit" name="insert_POST" value="Insert Now"></td>
-			</tr>
+							<tr align="center">
+								<td colspan="8"><input type="submit" name="insert_POST" value="Insert Now"></td>
+							</tr>
 
-		</table>
-	</form>
-
+						</table>
+					</form>
+					<br>
+          <br>
+			</div>
+		</div>
 </body>
 </html>
 <?php
@@ -80,8 +91,9 @@ $con = mysqli_connect("localhost","root", "", "ecommerce");
 		// If $insert_prod is a success, alert user that product has been inserted into products table
 		if($insert_prod) {
 			echo "<script>alert('Product has been inserted')</script>";
-			echo "<script>window.open('insert_product.php', '_self')</script>";
+			echo "<script>window.open('index.php?insert_product', '_self')</script>";
 		}
 	}
-
 ?>
+
+<?php } ?>

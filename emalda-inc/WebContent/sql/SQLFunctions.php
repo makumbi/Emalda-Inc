@@ -1,13 +1,10 @@
 <?php
-// Utilize global build in keyword to connect to our database
-global $con;
-/* Connect to local DB */
-$con = mysqli_connect("localhost","root", "", "ecommerce");
+include('includes/db.php');
 
 if(mysqli_connect_errno()){
 	echo "The connection was not established: " . mysqli_connect_error();
 }
-
+/*
 	function insertContact ($firstname, $lastname, $contactEmail, $comment)
 	{
 
@@ -30,7 +27,7 @@ if(mysqli_connect_errno()){
 		$mysqli ->close();
 		return $Success;
 	}
-
+*/
 	// getting the user IP address
 	function getIp() {
 

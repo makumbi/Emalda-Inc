@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php
+// Start session
+session_start();
 // Retrieves SQLFunctions php page and includes it to this page (index.php)
 // Functions in SQLFunctions will be called upon
 include("sql/SQLFunctions.php");
 ?>
-
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<title>Emalda Inc.</title>												<!--Change Title-->
 <meta charset="utf-8">
@@ -70,13 +71,15 @@ function validateForm() {
         <li><a href="#contact">CONTACT</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="customer/my_account.php"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
         <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart >> Items:<?php total_items();?> Price:<?php total_price();?></a></li>
+				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log-out</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- ************************* End NavBar *************************** -->
+
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">

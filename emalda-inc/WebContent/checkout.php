@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <?php
+// Start session
+session_start();
 // Retrieves SQLFunctions php page and includes it to this page (index.php)
 // Functions in SQLFunctions will be called upon
-include("sql/SQLFunctions.php");
+include("sql/mySQLFunctions.php");
 ?>
 	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 	<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -46,7 +48,7 @@ function validateForm() {
 </style>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 <!--****************** Added cart PHP function **************************-->
-<?php cart(); ?>
+<?php mycart(); ?>
 <!-- ************************* NavBar ****************************** -->
 <!-- The Nav Bar should always be above the "Emalda Inc." title  -->
 <!-- The Nav Bar should get smaller when someone scrolls down, and get bigger when they scroll up //navbar-default navbar-fixed-top -->
@@ -69,13 +71,13 @@ function validateForm() {
         <li><a href="index.php#contact">CONTACT</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-        <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart >> Items:<?php total_items();?> Price:<?php total_price();?></a></li>
+        <li><a href="customer/my_account.php"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart >> Items:<?php mytotal_items();?> Price:<?php mytotal_price();?></a></li>
+				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log-out</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
 <!-- ************************* End NavBar *************************** -->
 
 <!--**************************Begin Header*****************************-->
