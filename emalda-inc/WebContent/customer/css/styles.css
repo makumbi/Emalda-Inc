@@ -1,0 +1,366 @@
+/* Main Fonts of Page:
+-------------------------------------
+font-family: "Oswald", sans-serif;
+font-weight: 400;
+-------------------------------------
+font-family: "PT Sans", sans-serif;
+font-weight: 400;
+font-weight: 700;
+font-weight: 400italic;
+-------------------------------------*/
+
+/* Begin general body settings */
+body {
+	font-family: "PT Sans";
+	font-weight: 400;
+	padding: 0px !important;
+	margin: 0px !important;
+	font-size:14px;
+	color: #212c43;
+	letter-spacing: 1px;
+    opacity:0.9;
+}
+
+/* General typography */
+h1, h2, h3, h4, h5, h6, p {
+	margin: 20px;
+	font-family: "PT Sans";
+	font-weight: 400;
+	letter-spacing: 1px;
+    opacity:0.9;
+}
+
+a {
+	color: #7ccbfc;
+	text-shadow: none;
+}
+
+/* Fix link outlines after click */
+a, a:focus, a:hover, a:active {
+	outline: 0;
+	text-decoration: none;
+}
+
+/*Selected text color */
+::-moz-selection{
+	color: #fff;
+	background: #000;
+}
+::-webkit-selection{
+	color: #fff;
+	background: #000;
+}
+::-o-selection{
+	color: #fff;
+	background: #000;
+}
+::-ms-selection{
+	color: #fff;
+	background: #000;
+}
+::selection{
+	color: #fff;
+	background: #000;
+}
+/* End general body settings */
+
+/*---------------------------------------------------------------------------
+						Begin NavBar
+---------------------------------------------------------------------------*/
+
+/* Add a dark background color with a little bit see-through */
+.navbar {
+	margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #2d2d30;
+    border: 0px;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity:0.7;
+}
+
+/*.navbar-fixed-top {
+    height: 70px;
+}*/
+
+/* Add a gray color to all navbar links */
+.navbar li a, .navbar .navbar-brand {
+    color: #d5d5d5 !important;
+    height: 1px;
+}
+
+/* On hover, the links will turn white */
+.navbar-nav li a:hover {
+    color: #fff !important;
+}
+
+/* The active link */
+.navbar-nav li.active a {
+    color: #fff !important;
+    background-color:#29292c !important;
+}
+
+/* Remove border color from the collapsible button */
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+/* Dropdown */
+.open .dropdown-toggle {
+    color: #fff ;
+    background-color: #555 !important;
+}
+
+/* Dropdown links */
+ .dropdown-menu li a {
+    color: #000 !important;
+}
+
+/* On hover, the dropdown links will turn red */
+.dropdown-menu li a:hover {
+    background-color: red !important;
+}
+
+/*---------------------------------------------------------------------------
+						End NavBar
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Header
+---------------------------------------------------------------------------*/
+
+.header-height {
+ 	height: 500px;
+}
+
+.jumbotron {
+/*  position: relative; */
+/*  background: url(WebContent/images/we-farm-hero[1].jpg) no-repeat center center;*/
+/*  background-attachment: fixed; */
+  margin-top: 0px;
+/*  height: 500px; */
+  color: white;
+  background: #804000;
+}
+
+.position-text{
+	margin: 100px auto;
+}
+
+/*---------------------------------------------------------------------------
+						End Header
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin About Company Page
+---------------------------------------------------------------------------*/
+.action-about {
+/*	background: url(../img/call-to-action-bg-mini.jpg) center top repeat-x;
+	-webkit-box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	-moz-box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	box-shadow: inset 0 2px 5px rgba(0,0,0,.15);
+	height: 389px;
+	background-color:#ccc;*/
+}
+
+.bg-grey {
+	background-color: lightgrey;
+}
+
+.container-fluid {
+	padding: 25px;
+}
+
+.logo {
+	font-size: 200px;
+	letter-spacing: 4px;
+    opacity:0.9;
+}
+/* center the "logo column" on screens smaller than 768 pixels wide */
+@media screen and (max-width: 768px) {
+	.col-sm-4 {
+		text-align: center;
+		margin: 25px 0;
+	}
+}
+
+/*--------------------------------------------------------------------------
+						End About Company Page
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Company Products
+---------------------------------------------------------------------------*/
+
+.products_box {
+	width: 800px;
+	text-align: center;
+	margin-left: 65px;
+	margin-bottom: 10px;
+}
+
+#single_product {
+	float: left;
+	margin-left: 30px;
+	padding: 10px;
+}
+
+#single_product img {border: 2px solid black;}
+
+/* Add an color to all icons and set the font-size */
+.logo-small {
+    color: #804000;
+    font-size: 50px;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+.logo {
+    color: #804000;
+    font-size: 200px;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+/*--------------------------------------------------------------------------
+						End Company Products
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Our Farmers
+---------------------------------------------------------------------------*/
+
+.thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+/*--------------------------------------------------------------------------
+						End Our Farmers
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin what customers say
+---------------------------------------------------------------------------*/
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+    color: #800000;
+}
+
+.carousel-indicators li {
+    border-color: #800000;
+}
+
+.carousel-indicators li.active {
+    background-color: #800000;
+}
+
+.item h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    font-weight: 400;
+    font-style: italic;
+    margin: 70px 0;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+.item span {
+    font-style: normal;
+}
+
+/*--------------------------------------------------------------------------
+						End what customers say
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Product Pricing
+---------------------------------------------------------------------------*/
+
+.panel {
+    border: 1px solid #f4511e;
+    border-radius:0;
+    transition: box-shadow 0.5s;
+}
+
+.panel:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+
+.panel-footer .btn:hover {
+    border: 1px solid #f4511e;
+    background-color: #fff !important;
+    color: #f4511e;
+}
+
+.panel-heading {
+    color: #fff !important;
+    background-color: #f4511e !important;
+    padding: 25px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.panel-footer {
+    background-color: #fff !important;
+}
+
+.panel-footer h3 {
+    font-size: 32px;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+.panel-footer h4 {
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+ .panel-footer .btn {
+    margin: 15px 0;
+    background-color: #f4511e;
+    color: #fff;
+}
+
+/*--------------------------------------------------------------------------
+						End Product Pricing
+---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+						Begin Edit Account
+---------------------------------------------------------------------------*/
+
+
+
+/*---------------------------------------------------------------------------
+						End Edit Acount
+---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------
+						Begin Footer
+---------------------------------------------------------------------------*/
+
+/* Add a dark background color to the footer */
+footer {
+    background-color: #2d2d30;
+    color: #f5f5f5;
+    padding: 32px;
+}
+
+footer a {
+    color: #f5f5f5;
+}
+
+footer a:hover {
+    color: #777;
+    text-decoration: none;
+}
+
+/*---------------------------------------------------------------------------
+						End Footer
+---------------------------------------------------------------------------*/
