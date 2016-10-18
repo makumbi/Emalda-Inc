@@ -22,7 +22,7 @@
 <?php
   session_start();
   include('includes/db.php');
-
+	// Check if form has been posted
     if(isset($_POST['login'])){
 
         $email = $_POST['email'];
