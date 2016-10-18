@@ -1,22 +1,18 @@
 <?php
-  session_start();
+session_start();
 
-  if(!isset($_SESSION['user_email'])){
-      echo "<script>window.open('login.php?not_admin=You are not an Admin!', '_self')</script>";
-  }
-  else{
+// verfiy whether randomly generated token is set
+if(!($_SESSION['token'] && isset($_SESSION['email']))){
+    echo "<script>window.open('login.php?not_user=You have not logged in!', '_self')</script>";  
+} else {
 
 ?>
 
 <!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <html class="no-js" lang="en"> 
 <head>
 	<title>This is Admin Panel</title>												<!--Change Title-->
-<meta charset="utf-8">
-	<!--[if lt IE 8]>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<![endif]-->																	<!--Edge mode for IE8+-->
+<meta charset="utf-8">																	<!--Edge mode for IE8+-->
 <meta name="description" content="describe your page">							<!--Update content-->
 <meta name="keywords" content="">												<!--Update content-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">			<!--Scale a webpage to a 1:1 pixel-->
@@ -28,10 +24,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <!-- HTML5 shim for IE backwards compatibility -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+
 <style>
 	@import url('css/styles.css');                                           /* Custom styles */
 </style>
@@ -179,87 +172,6 @@
   	</div>
   </footer>
   <!-- **************************** End Footer ****************************** -->
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>	<!--Script jQuery-->
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script> 	<!--Script jQuery-->
-  <script src="js/vendor/jquery-migrate.js"></script>								<!--Script jQuery for old version jQuery-->
-  <script src="js/vendor/bootstrap.min.js"></script>								<!--Script Bootstrap-->
-  <script src="js/vendor/jquery.twitter.js"></script>								<!--Script Twitter-->
-  <script src="js/vendor/jflickrfeed.js"></script>								<!--Script Widget Flikr-->
-  <script src="js/vendor/jquery.mobile.menu.js"></script>							<!--Script Mobile menu-->
-  <script src="js/vendor/modernizr.custom.91224.js"></script>						<!--Script Modernizr-->
-  <script src="js/vendor/jquery.form.js"></script>								<!--Script Send Mail-->
-  <script src="js/vendor/jquery.bxslider.js"></script>							<!--Script Bxslider Slider-->
-  <script src="js/vendor/jquery.colorbox.js"></script>
-  <script src="js/vendor/jquery-ui-1.9.2.custom.min.js"></script>
-  <script type="text/javascript" src="js/vendor/jquery.ui.touch-punch.min.js"></script>
-  <script type="text/javascript" src="js/jquery.timelineG.js"></script>
-  <script src="js/custom.js"></script>											<!--Script Custom-->
-
-  <script>
-  $(document).ready(function(){
-      // Initialize Tooltip
-      $('[data-toggle="tooltip"]').tooltip();
-  })
-
-  $(document).ready(function() {
-
-  //3D-hover for iPhone, iPad, iPod
-  $('.ch-item').on("mouseenter mouseleave", function(e){
-  	e.preventDefault();
-  	$(this).toggleClass('hover');
-  	});
-
-  $('.ch-second-item').on("mouseenter mouseleave", function(e){
-  	e.preventDefault();
-  	$(this).toggleClass('hover');
-  	});
-
-
-  //Bxslider Slider
-  $('.appic-team').bxSlider({
-    pager: false,
-    minSlides: 1,
-    maxSlides: 4,
-    slideWidth: 270,
-    slideMargin: 30
-  });
-
-  //Timeline
-  $( ".timeline" ).timeLineG({
-  	maxdis:280,
-  	mindis:100,
-  	wraperClass:'timeline-wrap'
-  });
-
-  });
-
-  $(document).ready(function(){
-  	  // Add smooth scrolling to all links in navbar + footer link
-  	  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-  	  // Make sure this.hash has a value before overriding default behavior
-  	  if (this.hash !== "") {
-
-  	    // Prevent default anchor click behavior
-  	    event.preventDefault();
-
-  	    // Store hash
-  	    var hash = this.hash;
-
-  	    // Using jQuery's animate() method to add smooth page scroll
-  	    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-  	    $('html, body').animate({
-  	      scrollTop: $(hash).offset().top
-  	    }, 900, function(){
-
-  	      // Add hash (#) to URL when done scrolling (default click behavior)
-  	       window.location.hash = hash;
-  	      });
-  	    } // End if
-  	});
-  })
-  </script>
   </body>
   </html>
 
