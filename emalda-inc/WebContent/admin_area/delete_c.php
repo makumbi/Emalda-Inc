@@ -6,11 +6,15 @@
 
     $delete_id = $_GET['delete_c'];
 
-    $delete_c = "DELETE FROM customers WHERE customer_id='$delete_id'";
+    // set SQL statement and execute
+    $del_customer = "DELETE FROM customers WHERE customer_id=?";
 
-    $run_delete = mysqli_query($con, $delete_c);
+    $stmt = $con -> prepare($del_customer);
 
-    if($run_delete){
+    // bind parameters
+    $stmt -> bind_param('i', $delete_id);   
+
+    if($stmt -> execute()){
       echo "<script>alert('Customer was successfully deleted!')</script>";
       echo "<script>window.open('index.php?view_customers','_self')</script>";
     }
@@ -19,3 +23,4 @@
     }
   }
  ?>
+

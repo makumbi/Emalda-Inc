@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
-  if(!isset($_SESSION['user_email'])){
+session_start();
+  // verfiy whether randomly generated token is set
+    if(!($_SESSION['token'] && isset($_SESSION['email']))){
       echo "<script>window.open('login.php?not_admin=You are not an Admin!', '_self')</script>";
   }
   else{

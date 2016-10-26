@@ -34,8 +34,8 @@
 
     <form method="post" action="login.php">
         <input type="hidden" value="token" value="<?php echo $token; ?>" />
-    	<input type="text" name="email" placeholder="Email" required="required" />
-        <input type="password" name="password" placeholder="Password" required="required" />
+    	<input type="text" name="email" placeholder="Email" style="color: whitesmoke;" required="required" />
+        <input type="password" name="password" placeholder="Password" style="color: whitesmoke;" required="required" />
         <button type="submit" name="login" class="btn btn-primary btn-block btn-large">Login</button>
         <button class="btn btn-primary btn-block btn-large" onclick="registerButton()">Register</button>
     </form>

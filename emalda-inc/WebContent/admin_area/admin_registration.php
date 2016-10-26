@@ -24,8 +24,8 @@ include("includes/db.php");
 
     <form method="post" action="admin_registration.php">
         <input type="hidden" value="token" value="<?php echo $token; ?>" />
-    	<input type="text" name="email" placeholder="Email" required="required" />
-        <input type="password" name="password" placeholder="Password" required="required" />
+    	<input type="text" name="email" placeholder="Email" style="color: whitesmoke;" required="required" />
+        <input type="password" name="password" placeholder="Password" style="color: whitesmoke;" required="required" />
         <button type="submit" name="register" class="btn btn-primary btn-block btn-large">Register</button>
         <button class="btn btn-primary btn-block btn-large" onclick="loginButton()">Login</button>
     </form>
@@ -41,8 +41,7 @@ include("includes/db.php");
 
         if(mysqli_connect_errno()){
             echo "The connection was not established: " . mysqli_connect_errno();
-        }   
-        
+        }          
         
         $userEmail = $_POST['email'];
         $passWord = $_POST['password'];   

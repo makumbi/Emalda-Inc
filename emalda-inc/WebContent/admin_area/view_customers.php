@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <?php
+session_start();
 
-  if(!isset($_SESSION['user_email'])){
-      echo "<script>window.open('login.php?not_admin=You are not an Admin!', '_self')</script>";
-  }
-  else{
+// verfiy whether randomly generated token is set
+if(!($_SESSION['token'] && isset($_SESSION['email']))){
+    echo "<script>window.open('login.php?not_user=You have not logged in!', '_self')</script>";  
+} else {
 
 ?>
 <html>

@@ -13,9 +13,9 @@ if(!($_SESSION['token'] && isset($_SESSION['email']))){
 <head>
 	<title>This is Admin Panel</title>												<!--Change Title-->
 <meta charset="utf-8">																	<!--Edge mode for IE8+-->
-<meta name="description" content="describe your page">							<!--Update content-->
+<meta name="description" content="describe your page">		<!--Update content-->
 <meta name="keywords" content="">												<!--Update content-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">			<!--Scale a webpage to a 1:1 pixel-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">	 <!--Scale a webpage to a 1:1 pixel-->
 <link rel="shortcut icon" href="img/favicon.ico" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald%7CPT+Sans:400,700,400italic">	<!--Fonts styles-->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">								<!--Bootstrap styles-->
@@ -26,39 +26,15 @@ if(!($_SESSION['token'] && isset($_SESSION['email']))){
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <style>
-	@import url('css/styles.css');                                           /* Custom styles */
+	@import url('css/styles.css');  /* Custom styles */
+        
 </style>
-<body>
-
-  <!--  <div id="header"></div> -->
-  <nav class="navbar navbar-inverse visible-xs">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Logo</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Dashboard</a></li>
-          <li><a href="index.php?view_products">View All Products</a></li>
-          <li><a href="index.php?insert_product">Insert New Product</a></li>
-          <li><a href="index.php?view_customers">View Customer</a></li>
-          <li><a href="index.php?view_orders">View Orders</a></li>
-          <li><a href="index.php?view_payments">View Payments</a></li>
-          <li><a href="logout.php">Admin Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<body bgcolor="black">
 
   <div class="container-fluid">
     <div class="row content">
       <div class="col-sm-3 sidenav hidden-xs">
-        <h2>Logo</h2>
+          <h2><img src="images/admin_area.png" alt="Smiley face" height="150" width="340"></h2>
         <ul class="nav nav-pills nav-stacked">
           <li class="active"><a href="index.php">Dashboard</a></li>
           <li><a href="index.php?view_products">View All Products</a></li>

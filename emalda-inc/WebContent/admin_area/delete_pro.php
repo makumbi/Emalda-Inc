@@ -6,11 +6,15 @@
 
     $delete_id = $_GET['delete_pro'];
 
-    $delete_pro = "DELETE FROM products WHERE product_id='$delete_id'";
+    // set SQL statement and execute
+    $del_prod = "DELETE FROM products WHERE product_id=?";
 
-    $run_delete = mysqli_query($con, $delete_pro);
+    $stmt = $con -> prepare($del_prod);
 
-    if($run_delete){
+    // bind parameters
+    $stmt -> bind_param('i', $delete_id);   
+
+    if($stmt -> execute()){
       echo "<script>alert('Product was successfully deleted!')</script>";
       echo "<script>window.open('index.php?view_products','_self')</script>";
     }
