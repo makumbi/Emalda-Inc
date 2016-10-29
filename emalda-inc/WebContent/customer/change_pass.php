@@ -18,7 +18,7 @@
               <td><input type="password" name="new_pass" required></td>
             </tr>
             <tr>
-              <td><b>Enter New Password Again:</b></td>
+              <td><b>Re-Enter New Password:</b></td>
               <td><input type="password" name="new_pass_again" required></td>
             </tr>
             <tr>
@@ -34,36 +34,52 @@
 <?php
 if(isset($_POST['change_pass'])){
 
-    $user = $_SESSION['customer_email'];
+    $userEmail = $_SESSION['customer_email'];
 
     $current_pass= $_POST['current_pass'];
     $new_pass = $_POST['new_pass'];
     $new_again = $_POST['new_pass_again'];
 
+    $hash_new_pass = password_hash($new_again, PASSWORD_BCRYPT);
+    
+    $sel_cust = "SELECT * FROM customers WHERE customer_email=?";
+         echo "<script>alert('{$userEmail}')</script>";       
+    // Create prepared statement
+    if($stmt = $con -> prepare($sel_cust)){
 
-    // Select from customers where customer_pass is equal to current pass and customer_email='$user'
-    $sel_pass = "SELECT * FROM customers WHERE customer_pass='$current_pass' AND customer_email='$user'";
-    // Run query
-    $run_pass = mysqli_query($con, $sel_pass);
+        // bind parameters for makers
+        $stmt ->bind_param('s', $userEmail);
 
-    $check_pass = mysqli_num_rows($run_pass);
+        // execute query
+        $stmt ->execute();
 
-    if($check_pass == 0){
-      echo "<script>alert('Your current password is wrong!')</script>";
-      exit();
+        // store results
+        $result = $stmt -> store_result();
+
+        if($result == 0){
+          echo "<script>alert('Your current password is wrong!')</script>";
+          exit();
+        }
+        elseif(!(password_verify($new_pass , $hash_new_pass))){
+          echo "<script>alert('New password does not match!')</script>";
+          exit();
+        }else{
+          // SQL Statement
+          $update_pass = "UPDATE customers SET customer_pass=? WHERE customer_email=?";          
+          // if else statement
+          if($stmt = $con -> prepare($update_pass)){
+        
+            // bind parameters
+            $stmt ->bind_param('ss', $hash_new_pass, $userEmail);
+            // execute
+            if($stmt -> execute()){
+                $_SESSION['customer_email'] = $userEmail;
+                echo "<script>alert('Your password was updated succesfully!')</script>";
+                echo "<script>window.open('my_account.php', '_self')</script>";
+            }
+          }
+        }
     }
-    elseif($new_pass!=$new_again){
-      echo "<script>alert('New password does not match!')</script>";
-      exit();
-    }else{
-      // SQL Statement
-      $update_pass = "UPDATE customers SET customer_pass='$new_pass' WHERE customer_email='$user'";
-      // Run query
-      $run_update = mysqli_query($con, $update_pass);
-
-      echo "<script>alert('Your password was updated succesfully!')</script>";
-      echo "<script>window.open('my_account.php', '_self')</script>";
-    }
-  }
+}
 
 ?>
