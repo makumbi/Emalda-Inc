@@ -1,23 +1,32 @@
 <?php
   include('includes/db.php');
-  $user = $_SESSION['customer_email'];
+  $userEmail = $_SESSION['customer_email'];
+  global $email;
+  
+      // set SQL statement and execute
+    $sel_user = "SELECT * FROM customers WHERE customer_email=?";
+    
+    if($stmt = $con -> prepare($sel_user)){
 
-      // Select all from customer table where customer email is equal to user variable
-      $get_customer = "SELECT * FROM customers WHERE customer_email='$user'";
-      // Run query
-      $run_customer = mysqli_query($con, $get_customer);
-      // Retrieve rows that meet our search
-      $row_customer = mysqli_fetch_array($run_customer);
-
-      $c_id = $row_customer['customer_id'];
-      $name = $row_customer['customer_name'];
-      $email = $row_customer['customer_email'];
-      $pass = $row_customer['customer_pass'];
-      $country = $row_customer['customer_country'];
-      $city = $row_customer['customer_city'];
-      $contact = $row_customer['customer_contact'];
-      $address  = $row_customer['customer_address'];
-      $image = $row_customer['customer_image'];
+        // bind parameters
+        $stmt -> bind_param('s', $userEmail);
+        
+        // execute query
+        $stmt -> execute();    
+  
+        // get results
+        $result = $stmt -> get_result();
+        
+        while($row_customer = $result -> fetch_array()){  
+            $c_id = $row_customer['customer_id'];
+            $name = $row_customer['customer_name'];
+            $email = $row_customer['customer_email'];
+            $pass = $row_customer['customer_pass'];
+            $country = $row_customer['customer_country'];
+            $city = $row_customer['customer_city'];
+            $contact = $row_customer['customer_contact'];
+            $address  = $row_customer['customer_address'];
+            $image = $row_customer['customer_image'];
 ?>
 
 <div class="row">
@@ -29,35 +38,35 @@
         <form action="" method="post" enctype="multipart/form-data">
             <table align="center" width="750">
               <tr>
-                <td align="right"> Customer Name:</td>
-                <td><input type="text" name="c_name" value="<?php echo $name; ?>" required></input></td>
+                <td align="right"> Name:</td>
+                <td><input type="text" name="c_name" value="<?php echo $name; ?>" ></input></td>
               </tr>
 
               <tr>
-                <td align="right">Customer Email:</td>
-                <td><input type="text" name="c_email" value="<?php echo $email; ?>" required></input></td>
+                <td align="right">Email:</td>
+                <td><input type="text" name="c_email" value="<?php echo $email; ?>" ></input></td>
               </tr>
 
               <tr>
-                <td align="right">Customer Password:</td>
-                <td><input type="password" name="c_pass" value="<?php echo $pass; ?>" required></input></td>
+                <td align="right">Password:</td>
+                <td><input type="password" name="c_pass" value="<?php echo $pass; ?>" ></input></td>
                 <br><br>
               </tr>
 
               <tr>
-                <td align="right">Customer Address:</td>
-                <td><input type="text" name="c_address" value="<?php echo $address; ?>" required></input></td>
+                <td align="right">Address:</td>
+                <td><input type="text" name="c_address" value="<?php echo $address; ?>" ></input></td>
               </tr>
 
               <tr>
-                <td align="right">Customer City:</td>
-                <td><input type="text" name="c_city" value="<?php echo $city; ?>" required></input></td>
+                <td align="right">City:</td>
+                <td><input type="text" name="c_city" value="<?php echo $city; ?>" ></input></td>
               </tr>
 
               <tr>
-                <td align="right">Customer Country</td>
+                <td align="right">Country</td>
                 <td>
-                  <select name="c_country" disabled>
+                  <select name="c_country">
                     <option><?php echo $country; ?></option>
                     <option>United States</option>
                     <option>Afghanistan</option>
@@ -86,13 +95,13 @@
               </tr>
 
               <tr>
-                <td align="right">Customer Image:</td>
-                <td><input type="file" name="c_image"></input></td>
+                <td align="right">Image:</td>
+                <td><input type="file" name="c_image" required></input></td>
               </tr>
 
               <tr>
-                <td align="right">Customer Contact:</td>
-                <td><input type="text" name="c_contact" value="<?php echo $contact; ?>" required></input></td>
+                <td align="right">Contact:</td>
+                <td><input type="text" name="c_contact" value="<?php echo $contact; ?>" ></input></td>
               </tr>
 
               <tr align="center">
@@ -106,6 +115,10 @@
   </div>
 </div>
 
+<?php
+        }
+    }
+?>
 <?php
 if(isset($_POST['update'])){
     // Retrieves and stores USER IP Address
@@ -121,18 +134,26 @@ if(isset($_POST['update'])){
     $c_image_tmp = $_FILES['c_image']['tmp_name'];
     $c_contact = $_POST['c_contact'];
 
+    $hash = password_hash($c_pass, PASSWORD_BCRYPT);
+    
     // moves uploaded files into folder called customer_images
     move_uploaded_file($c_image_tmp, "customer_images/$c_image");
-    // Insert into customer table values ('$ip', '$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image')
-    $update_c = "UPDATE customers SET customer_name='$c_name', customer_email='$c_email', customer_pass='$c_pass', customer_city='$c_city', customer_contact='$c_contact', customer_address='$c_address', customer_image='$c_image'
-                WHERE customer_id='$customer_id'";
-    // Run query
-    $run_update = mysqli_query($con, $update_c);
-
-    if($run_update){
-      echo "<script>alert('Your account succesfully updated!')</script>";
-      echo "<script>window.open('my_account.php', '_self')</script>";
+    
+    // Update customer table SET ('$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image', '$ip')
+    $update_c = "UPDATE customers SET customer_name=?, customer_email=?, customer_pass=?, customer_country=?, customer_city=?, customer_contact=?, customer_address=?, customer_image=?
+                WHERE customer_ip=? AND customer_email=?";
+    
+    if($stmt = $con -> prepare($update_c)){
+        
+        // bind parameters
+        $stmt ->bind_param('ssssssssss', $c_name, $c_email, $hash, $c_country, $c_city, $c_contact, $c_address, $c_image, $ip, $email);
+   
+        if($stmt -> execute()){
+          $_SESSION['customer_email'] = $c_email;
+          echo "<script>alert('Your account succesfully updated!')</script>";
+          echo "<script>window.open('my_account.php', '_self')</script>";
+        }
     }
-  }
+ }
 
 ?>
