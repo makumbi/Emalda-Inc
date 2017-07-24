@@ -10,7 +10,7 @@ function find_count_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     
     $isRow = find_in_error_logins($email);
@@ -56,7 +56,7 @@ function find_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     // set SQL statement and execute
     $sel_user = "SELECT * FROM failed_login WHERE email=?";
@@ -95,7 +95,7 @@ function find_time_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
 
     // set SQL statement and execute
@@ -134,7 +134,7 @@ function add_record_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     
     $count = 1;
@@ -169,7 +169,7 @@ function update_record_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     // We call on our defined function to find number of times user has entered error 
     $failed_login_ctn = count_in_error_logins($email);
@@ -210,7 +210,7 @@ function count_in_error_logins($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     
     // set SQL statement and execute
@@ -249,7 +249,7 @@ function update_record_in_error_logins_CLEAR($email){
     $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
     if(mysqli_connect_errno()){
-        echo "The connection was not established: " . mysqli_connect_errno();
+        echo "Database connection was not established";
     }
     
     $last_time = 0;
