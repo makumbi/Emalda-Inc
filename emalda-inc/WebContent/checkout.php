@@ -130,21 +130,21 @@ function validateForm() {
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
-        <p>Yes, we built Paris</p>
+        <p><strong>Market</strong></p>
+        <p>Yes, we built in Paris</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
-        <p>We built New York</p>
+        <p><strong>Market</strong></p>
+        <p>We built in New York</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
         <img src="images/Mozambique-small[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
+        <p><strong>Market</strong></p>
         <p>Yes, San Fran is ours</p>
       </div>
     </div>
