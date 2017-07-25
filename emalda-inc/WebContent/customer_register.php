@@ -85,17 +85,17 @@ function validateForm() {
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-		<div class="jumbotron text-center">
-			<div class="position-text">
-				<h1>Create Account</h1>
-				<p>We import fresh foods from African farmers to your door step</p>
-	 			<form class="form-inline" name="userSearch"
-					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
-					<button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
-				</form>
-			</div>
-		</div>
+    <div class="jumbotron text-center">
+        <div class="position-text">
+            <h1>Create Account</h1>
+            <p>We import fresh food from African farmers to your door step</p>
+            <form class="form-inline" name="userSearch"
+                onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
+                <input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
+                <button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
+            </form>
+        </div>
+    </div>
 </header><!--**************************End Header*****************************-->
 
 <!--**************************Begin Customer Registration*****************************-->
@@ -181,37 +181,6 @@ function validateForm() {
 <p></p>
 <p></p>
 <!--**************************End Customer Registration*****************************-->
-<!--**************************Begin Our Farmers*****************************-->
-<div id="farmers" class="container">
-<div class="container-fluid text-center bg-grey">
-  <h2>Our Farmers</h2>
-  <h4>Farmers that partner with us</h4>
-  <div class="row text-center">
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
-        <p>Yes, we built Paris</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
-        <p>We built New York</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/Mozambique-small[1].jpg" alt="Farmer">
-        <p><strong>Bla bla market</strong></p>
-        <p>Yes, San Fran is ours</p>
-      </div>
-    </div>
-</div>
-</div>
-</div>
-<!--**************************End Our Farmers*****************************-->
 
 <!-- **************************** Footer ********************************* -->
 <footer class="text-center">
@@ -220,9 +189,9 @@ function validateForm() {
   </a><br><br>
   <p>Theme Made By <a href="#" data-toggle="tooltip" title="Visit makumbi-srv">www.makumbi-srv.com</a></p>
   <div class="copyright pull-center">
-	<p>&copy; Emalda Inc., 2016. All rights reserved. </p>
-	<p>web by: <a href="#" target="_blank" data-toggle="tooltip">emalda.com</a></p>
-	</div>
+    <p>&copy; Emalda Inc., 2016. All rights reserved. </p>
+    <p>web by: <a href="#" target="_blank" data-toggle="tooltip">emalda.com</a></p>
+</div>
 </footer>
 <!-- **************************** End Footer ****************************** -->
 
@@ -310,79 +279,87 @@ $(document).ready(function(){
 </html>
 <!-- Localized -->
 <?php
-
+  // defining variables and setting them to empty
+  
   if(isset($_POST['register'])){
-			// Retrieves and stores USER IP Address
-			$ip = getIp();
+    // Retrieves and stores USER IP Address
+    $ip = getIp();
+    // Validate and Sanitize Customer Inputs
+    $c_name = test_input($_POST['c_name']);
+    $c_email = test_input($_POST['c_email']);
+    $c_pass = test_input($_POST['c_pass']);
+    $c_address = test_input($_POST['c_address']);
+    $c_city = test_input($_POST['c_city']);
+    $c_country = test_input($_POST['c_country']);
+    $c_image = $_FILES['c_image']['name'];
+    $c_image_tmp = $_FILES['c_image']['tmp_name'];
+    $c_contact = test_input($_POST['c_contact']);
 
-			$c_name = $_POST['c_name'];
-			$c_email = $_POST['c_email'];
-			$c_pass = $_POST['c_pass'];
-			$c_address = $_POST['c_address'];
-			$c_city = $_POST['c_city'];
-			$c_country = $_POST['c_country'];
-			$c_image = $_FILES['c_image']['name'];
-			$c_image_tmp = $_FILES['c_image']['tmp_name'];
-			$c_contact = $_POST['c_contact'];
-
-      // Insert into customer table values ('$ip', '$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image')
-			$insert_c = "INSERT INTO customers (customer_ip, customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image)
+    // Function used to sanitize and validate use input
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+    // Insert into customer table values ('$ip', '$c_name', '$c_email', '$c_pass', '$c_country', '$c_city', '$c_contact', '$c_address', '$c_image')
+    $insert_c = "INSERT INTO customers (customer_ip, customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image)
       VALUES (?,?,?,?,?,?,?,?,?)";
 
-			// Create prepared statement
-			if($stmt = $con -> prepare($insert_c)){
+        // Create prepared statement
+        if($stmt = $con -> prepare($insert_c)){
 
-					// moves uploaded files into folder called customer_images
-					move_uploaded_file($c_image_tmp, "customer/customer_images/$c_image");
+            // moves uploaded files into folder called customer_images
+            // Vulnerable to Path Traversal
+            move_uploaded_file($c_image_tmp, "customer/customer_images/$c_image");
 
-					// bind parameters for makers
-					$stmt ->bind_param('sssssssss', $ip, $c_name, $c_email, $c_pass, $c_country, $c_city, $c_contact, $c_address, $c_image);
+            // bind parameters for makers
+            $stmt ->bind_param('sssssssss', $ip, $c_name, $c_email, $c_pass, $c_country, $c_city, $c_contact, $c_address, $c_image);
 
-					// execute query
-					$stmt ->execute();
+            // execute query
+            $stmt ->execute();
 
-					// Insect all from cart table where IP addess is equal to user's IP
-		      $sel_cart = "SELECT * FROM cart WHERE ip_add=?";
+            // Insect all from cart table where IP addess is equal to user's IP
+            $sel_cart = "SELECT * FROM cart WHERE ip_add=?";
 
-					if($stmt = $con -> prepare($sel_cart)){
+            if($stmt = $con -> prepare($sel_cart)){
 
-						// bind parameters for makers
-						$stmt ->bind_param('s', $ip);
+                    // bind parameters for makers
+                    $stmt ->bind_param('s', $ip);
 
-						// execute query
-						$stmt ->execute();
+                    // execute query
+                    $stmt ->execute();
 
-						// store results
-						$result = $stmt -> store_result();
+                    // store results
+                    $result = $stmt -> store_result();
 
-						// Check where the cart has rows
-			      // If it has rows, it means user has items in cart
-    				$check_cart = $result -> num_rows;
+                    // Check where the cart has rows
+              // If it has rows, it means user has items in cart
+                $check_cart = $result -> num_rows;
 
-			      if($check_cart == 0){
+              if($check_cart == 0){
 
-			        // Register User Session
-			        $_SESSION['customer_email'] = $c_email;
+                // Register User Session
+                $_SESSION['customer_email'] = $c_email;
 
-			        echo "<script>alert('Account has been created successfully, thanks!')</script>";
-			        echo "<script>window.open('customer/my_account.php', '_self')</script>";
-			      } else {
+                echo "<script>alert('Account has been created successfully, thanks!')</script>";
+                echo "<script>window.open('customer/my_account.php', '_self')</script>";
+              } else {
 
-			        // Register User Session
-			        $_SESSION['customer_email'] = $c_email;
+                // Register User Session
+                $_SESSION['customer_email'] = $c_email;
 
-			        echo "<script>alert('Account already exists')</script>";
-			        echo "<script>window.open('checkout.php', '_self')</script>";
-			      }
+                echo "<script>alert('Account already exists')</script>";
+                echo "<script>window.open('checkout.php', '_self')</script>";
+              }
 
-  			}
-				// free results
-				$stmt ->free_result();
-				// close statement
-				$stmt ->close();
-			}
+        }
+                // free results
+                $stmt ->free_result();
+                // close statement
+                $stmt ->close();
+        }
 // close connection
 $con -> close();
 }
-
 ?>
