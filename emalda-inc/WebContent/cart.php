@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-// We begin session to be used cart page
+// We begin session
 session_start();
 // Retrieves SQLFunctions php page and includes it to this page (index.php)
 // Functions in SQLFunctions will be called upon
@@ -84,11 +84,11 @@ function validateForm() {
 <?php
 	if(isset($_SESSION['customer_email'])){
 
-		$user = $_SESSION['customer_email'];
+            $user = $_SESSION['customer_email'];
 
 	}else {
 
-		$user = "Guest";
+            $user = "Guest";
 	}
 
 ?>
@@ -210,13 +210,12 @@ function validateForm() {
 
 	  		<?php
 		  		if(isset($_POST['update_cart'])){
-		  		//	$qty = $_POST['qty'];
 
 						foreach ( $phpArr as $tableId){
 							$nqty = $_POST[$tableId];
 							$update_stmt = "UPDATE cart SET qty = '$nqty' WHERE p_id='$tableId'";
 							$run_qty = mysqli_query($con, $update_stmt);
-		  			//$update_qty = "UPDATE cart SET qty='$qty'";
+		  			
 					}
 				}
 	  		?>
