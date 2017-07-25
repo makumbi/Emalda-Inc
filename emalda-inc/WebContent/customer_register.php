@@ -280,6 +280,7 @@ $(document).ready(function(){
 <!-- Localized -->
 <?php
   // defining variables and setting them to empty
+  $c_name = $c_email = $c_pass = $c_address = $c_city = $c_country = $c_image = $c_image_tmp = $c_contact = "";
   
   if(isset($_POST['register'])){
     // Retrieves and stores USER IP Address
