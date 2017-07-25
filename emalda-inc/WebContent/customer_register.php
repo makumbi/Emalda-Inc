@@ -107,27 +107,32 @@ function validateForm() {
         <tr>
           <td align="right"> Customer Name:</td>
           <td><input type="text" name="c_name" required></input></td>
+          <span class="error">* <?php echo $c_nameErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer Email:</td>
           <td><input type="text" name="c_email" required></input></td>
+          <span class="error">* <?php echo $c_emailErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer Password:</td>
           <td><input type="password" name="c_pass" required></input></td>
+          <span class="error">* <?php echo $c_passErr;?></span>
           <br><br>
         </tr>
 
         <tr>
           <td align="right">Customer Address:</td>
           <td><input type="text" name="c_address" required></input></td>
+          <span class="error">* <?php echo $c_addressErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer City:</td>
           <td><input type="text" name="c_city" required></input></td>
+          <span class="error">* <?php echo $c_cityErr;?></span>
         </tr>
 
         <tr>
@@ -281,21 +286,52 @@ $(document).ready(function(){
 <?php
   // defining variables and setting them to empty
   $c_name = $c_email = $c_pass = $c_address = $c_city = $c_country = $c_image = $c_image_tmp = $c_contact = "";
+  $c_nameErr = $c_emailErr = $c_passErr = $c_addressErr = $c_cityErr = $c_imageErr = $c_image_tmpErr = $c_contactErr = "";
   
   if(isset($_POST['register'])){
     // Retrieves and stores USER IP Address
     $ip = getIp();
     // Validate and Sanitize Customer Inputs
     $c_name = test_input($_POST['c_name']);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$c_name)) {
+        $c_nameErr = "Only letters and white space allowed"; 
+    }
+    
     $c_email = test_input($_POST['c_email']);
+    // filter email to validate input
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $c_emailErr = "Invalid email format"; 
+    }
+    
     $c_pass = test_input($_POST['c_pass']);
+    // check for password length
+    if (iconv_strlen($c_pass) < 8) {
+        $c_passErr = "Password should be longer than 8 characters";
+    }
+ 
     $c_address = test_input($_POST['c_address']);
+    // check if email contains valid chars
+    if (!preg_match("/^[a-z0-9-]+$/i",$c_address)) {
+        $c_addressErr = "Invalid address"; 
+    }
+    
     $c_city = test_input($_POST['c_city']);
+    // check if city name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$c_name)) {
+        $c_cityErr = "Only letters and white space allowed"; 
+    }
+    
     $c_country = test_input($_POST['c_country']);
     $c_image = $_FILES['c_image']['name'];
     $c_image_tmp = $_FILES['c_image']['tmp_name'];
+    
     $c_contact = test_input($_POST['c_contact']);
-
+    // check if city name only contains letters and whitespace
+    if (!preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/",$c_contact)) {
+        $c_contactErr = "Please enter a valid phone number"; 
+    }
+    
     // Function used to sanitize and validate use input
     function test_input($data) {
       $data = trim($data);
