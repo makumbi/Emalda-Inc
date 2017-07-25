@@ -3,7 +3,7 @@
 include('includes/db.php');
 
 if(mysqli_connect_errno()){
-	echo "The connection was not established: " . mysqli_connect_error();
+	echo "The databse connection was not established";
 }
 /*
 	function insertContact ($firstname, $lastname, $contactEmail, $comment)
@@ -234,11 +234,5 @@ if(mysqli_connect_errno()){
 		";
 
 		}
-
 	}
-
-
-
-
-
 ?>
