@@ -2,7 +2,7 @@
 include('includes/db.php');
 
 if(mysqli_connect_errno()){
-	echo "The connection was not established: " . mysqli_connect_error();
+	echo "Database connection was not established";
 }
 /*
 	function insertContact ($firstname, $lastname, $contactEmail, $comment)
@@ -194,9 +194,7 @@ if(mysqli_connect_errno()){
 				$values = array_sum($product_price);
 				$total += $values;
 			}
-
 		}
-
 		echo "$" . $total;
 	}
 
@@ -231,13 +229,6 @@ if(mysqli_connect_errno()){
 			</div>
 
 		";
-
 		}
-
 	}
-
-
-
-
-
 ?>
