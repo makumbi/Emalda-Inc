@@ -249,13 +249,16 @@ $c_emailErr = $c_passErr = "";
       // filter email to validate input
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $c_emailErr = "Invalid email format"; 
+          echo "<script>alert('Please try again!')</script>";
+          exit();
       }
       
       $c_pass = test_input($_POST['pass']);
       // check for password length
       if (iconv_strlen($c_pass) < 8) {
         $c_passErr = "Password should be longer than 8 characters";
-        
+        echo "<script>alert('Please try again!')</script>";
+        exit();
       }
       
     // Function used to sanitize and validate use input
