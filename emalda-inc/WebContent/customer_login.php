@@ -117,13 +117,11 @@ function validateForm() {
       <tr>
           <td align="center"><b>Email:</b></td>
           <td align="left"><input type="text" name="email" placeholder="enter email" required></input></td>
-          <span class="error">* <?php echo $c_emailErr;?></span>
       </tr>
 
       <tr>
           <td align="center"><b>Password:</b></td>
           <td align="left"><input type="password" name="pass" placeholder="enter password" required></input></td>
-          <span class="error">* <?php echo $c_passErr;?></span>
       </tr>
 
       <tr align="center">
@@ -249,7 +247,7 @@ $c_emailErr = $c_passErr = "";
       // filter email to validate input
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $c_emailErr = "Invalid email format"; 
-          echo "<script>alert('Please try again!')</script>";
+          echo "<script>alert('Please try again! $c_emailErr')</script>";
           exit();
       }
       
@@ -257,7 +255,7 @@ $c_emailErr = $c_passErr = "";
       // check for password length
       if (iconv_strlen($c_pass) < 8) {
         $c_passErr = "Password should be longer than 8 characters";
-        echo "<script>alert('Please try again!')</script>";
+        echo "<script>alert('Please try again! $c_passErr')</script>";
         exit();
       }
       
