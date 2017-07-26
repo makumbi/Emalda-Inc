@@ -82,17 +82,17 @@ function validateForm() {
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-		<div class="jumbotron text-center">
-			<div class="position-text">
-				<h1>Checkout</h1>
-				<p>We import fresh foods from African farmers to your door step</p>
-	 			<form class="form-inline" name="userSearch"
-					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
-					<button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
-				</form>
-			</div>
-		</div>
+    <div class="jumbotron text-center">
+        <div class="position-text">
+            <h1>Checkout</h1>
+            <p>We import fresh foods from African farmers to your door step</p>
+            <form class="form-inline" name="userSearch"
+                onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
+                <input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
+                <button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
+            </form>
+        </div>
+    </div>
 </header><!--**************************End Header*****************************-->
 
 <!--**************************Begin Company Products*****************************-->
@@ -111,8 +111,6 @@ function validateForm() {
           // If customer_email is set
           // Send user to payment page
           include("payment.php");
-
-
       }
 
    ?>
@@ -121,37 +119,7 @@ function validateForm() {
 </div>
 </section>
 <!--**************************End Company Products*****************************-->
-<!--**************************Begin Our Farmers*****************************-->
-<div id="farmers" class="container">
-<div class="container-fluid text-center bg-grey">
-  <h2>Our Farmers</h2>
-  <h4>Farmers that partner with us</h4>
-  <div class="row text-center">
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Market</strong></p>
-        <p>Yes, we built in Paris</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/we-farm-hero[1].jpg" alt="Farmer">
-        <p><strong>Market</strong></p>
-        <p>We built in New York</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="images/Mozambique-small[1].jpg" alt="Farmer">
-        <p><strong>Market</strong></p>
-        <p>Yes, San Fran is ours</p>
-      </div>
-    </div>
-</div>
-</div>
-</div>
-<!--**************************End Our Farmers*****************************-->
+
 
 <!-- **************************** Footer ********************************* -->
 <footer class="text-center">
