@@ -91,17 +91,17 @@ function validateForm() {
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-		<div class="jumbotron text-center">
-			<div class="position-text">
-				<h1>Account Login</h1>
-				<p>We import fresh foods from African farmers to your door step</p>
-	 			<form class="form-inline" name="userSearch"
-					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
-					<button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
-				</form>
-			</div>
-		</div>
+    <div class="jumbotron text-center">
+        <div class="position-text">
+            <h1>Account Login</h1>
+            <p>We import fresh foods from African farmers to your door step</p>
+            <form class="form-inline" name="userSearch"
+                onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
+                <input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
+                <button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
+            </form>
+        </div>
+    </div>
 </header><!--**************************End Header*****************************-->
 
 <!--**************************Begin Customer Account Login*****************************-->
@@ -117,11 +117,13 @@ function validateForm() {
       <tr>
           <td align="center"><b>Email:</b></td>
           <td align="left"><input type="text" name="email" placeholder="enter email" required></input></td>
+          <span class="error">* <?php echo $c_emailErr;?></span>
       </tr>
 
       <tr>
           <td align="center"><b>Password:</b></td>
           <td align="left"><input type="password" name="pass" placeholder="enter password" required></input></td>
+          <span class="error">* <?php echo $c_passErr;?></span>
       </tr>
 
       <tr align="center">
@@ -237,12 +239,33 @@ $(document).ready(function(){
 <!-- Localized -->
 
 <?php
+// defining variables
+$c_email = $c_pass = "";
+$c_emailErr = $c_passErr = "";
 
   if(isset($_POST['login'])){
-
-      $c_email = $_POST['email'];
-      $c_pass = $_POST['pass'];
-
+      // Validate and Sanitize Input
+      $c_email = test_input($_POST['email']);
+      // filter email to validate input
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $c_emailErr = "Invalid email format"; 
+      }
+      
+      $c_pass = test_input($_POST['pass']);
+      // check for password length
+      if (iconv_strlen($c_pass) < 8) {
+        $c_passErr = "Password should be longer than 8 characters";
+        
+      }
+      
+    // Function used to sanitize and validate use input
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+      
       // Select all from customer table where customer_pass is equal to user_pass and customer_email is equal to user_pass
       $sel_c = "SELECT * FROM customers WHERE customer_pass=? AND customer_email=?";
 
@@ -254,24 +277,16 @@ $(document).ready(function(){
         // execute query
         $stmt ->execute();
 
-      /*  // store results
-        $stmt -> store_result();
-
-        // Count number of rows
-        $check_customer = $stmt-> num_rows;*/
-
         // get results
-				$result = $stmt -> get_result();
+	$result = $stmt -> get_result();
         $check_customer = 0;
-				while($row = $result -> fetch_array()){
+	while($row = $result -> fetch_array()){
 
-
-              echo $check_customer++;
-
+            $check_customer++;
         }
 
         if($check_customer == 0){
-          echo "<script>alert('Password or email is incorrect. Please try again!1111111')</script>";
+          echo "<script>alert('Password or email is incorrect. Please try again!')</script>";
           // exit() tells the program that nothing else is going to be excuted once it gets to this point
           exit();
         }
@@ -326,94 +341,4 @@ $(document).ready(function(){
       // close connection
       $con -> close();
   }
-
-/*
-// Select all from customer table where customer_pass is equal to user_pass and customer_email is equal to user_pass
-$sel_c = "SELECT * FROM customers WHERE customer_pass=? AND customer_email=?";
-
-if($stmt = mysqli_prepare($con, $sel_c)){
-    if($stmt == false) {
-  die("<pre>".mysqli_error($conn).PHP_EOL.$query."</pre>");
-}
-  // bind parameters for makers
-  $stmt1 = mysqli_stmt_bind_param($stmt, 'ss', $c_email, $c_pass);
-
-  if ( !$stmt1 ) {
-    die('mysqli error: '.mysqli_error($con));
-  }
-  // execute query
-  $stmt2 =  mysqli_stmt_execute($stmt);
-
-  if ( !$stmt2 ) {
-    die('mysqli error: '.mysqli_error($con));
-  }
-  // store result
-  $stmt3 = mysqli_stmt_store_result($stmt);
-
-  if ( !$stmt3 ) {
-    die('mysqli error: '.mysqli_error($con));
-  }
-
-
-  // Count number of rows
-  $check_customer = mysqli_stmt_num_rows($stmt);  //-> num_rows;
-
-if($check_customer == 0){
-  echo "<script>alert('Password or email is incorrect. Please try again!1111111')</script>";
-  // exit() tells the program that nothing else is going to be excuted once it gets to this point
-  exit();
-}
-
-// free results
-$stmt ->free_result();
-
-// retrieve and store user ip address
-$ip = getIp();
-// Insect all from cart table where IP addess is equal to user's IP
-$sel_cart = "SELECT * FROM cart WHERE ip_add=?";
-
-// Create prepared statement
-if($stmt = $con -> prepare($sel_cart)){
-
-  // bind parameters for makers
-  $stmt ->bind_param('s', $ip);
-
-  // execute query
-  $stmt ->execute();
-
-  // store results
-  $result = $stmt -> store_result();
-
-  // Check where the cart has rows
-  // If it has rows, it means user has items in cart
-  $check_cart = $result -> num_rows;
-
-  if($check_customer > 0 AND $check_cart == 0){
-    // This means user does not have any products so we should direct them to their account
-    // Register User Session
-    $_SESSION['customer_email'] = $c_email;
-
-    echo "<script>alert('You logged in successfully, thanks!')</script>";
-    echo "<script>window.open('customer/my_account.php', '_self')</script>";
-}else{
-
-  // This means user has products and that they should be directed to the check out page
-  // Register User Session
-  $_SESSION['customer_email'] = $c_email;
-
-  echo "<script>alert('You logged in successfully, thanks!')</script>";
-  echo "<script>window.open('customer/my_account.php', '_self')</script>";
-
-}
-}
-mysqli_stmt_close($stmt);
-}
-// close connection
-mysqli_close($con);
-}
-
-
-
-
-*/
 ?>
