@@ -41,10 +41,7 @@ function validateForm() {
     }
 }
 </script>
-  <!-- HTML5 shim for IE backwards compatibility -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  
 <style>
 	@import url('resources/css/styles.css');                                           /* Custom styles */
 </style>
@@ -83,8 +80,16 @@ function validateForm() {
 <!-- ************************* End NavBar *************************** -->
 <?php
 	if(isset($_SESSION['customer_email'])){
-
-            $user = $_SESSION['customer_email'];
+            // Validate customer email
+            $user = test_input($validateUser) = $_SESSION['customer_email'];
+            
+            // Function used to sanitize and validate use input
+            function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
 
 	}else {
 
@@ -117,117 +122,116 @@ function validateForm() {
   	<table align="center" width="730" bgcolor="yellow">
 
   		<tr align="center" id="table">
-  			<th>Remove</th>
-  			<th>Product(s)</th>
-  			<th>Quantity</th>
-  			<th>Total Price</th>
+                    <th>Remove</th>
+                    <th>Product(s)</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
   		</tr>
 
-  		<?php
-			// declare total variable and set it to 0
-			// Will be used to store total price for products later on
-			$total = 0;
-			// declare array and set it to 0.
-			// It will store total prices
+            <?php
+                // declare total variable and set it to 0
+                // Will be used to store total price for products later on
+                $total = 0;
+                // declare array and set it to 0.
+                // It will store total prices
   		$arrTotal [0] = 0;
-			// declare array and set it to 0
-			$phpArr[0] = 0;
-			// Utilize global build in keyword to connect to our database
+                // declare array and set it to 0
+                $phpArr[0] = 0;
+                // Utilize global build in keyword to connect to our database
   		global $con;
 
-			// Using SQLFunctions page, getIp() function is used to get and store user IP address
+		// Using SQLFunctions page, getIp() function is used to get and store user IP address
   		$ip = getIp();
 
-			// SQL query statement
-			// Select all from cart table where IP address is equal to IP address stored in $ip variable
-			// $ip variable is the user's variable
+                // SQL query statement
+                // Select all from cart table where IP address is equal to IP address stored in $ip variable
+                // $ip variable is the user's variable
   		$sel_price = "SELECT * FROM cart WHERE ip_add='$ip'";
-			// Run query
+		// Run query
   		$run_price = mysqli_query($con, $sel_price);
 
-			$counter = 0;
-			// Utilizing mysqli built in statement, results are fetched in an array format
-			// Then stored inside $p_price variable
+                $counter = 0;
+                // Utilizing mysqli built in statement, results are fetched in an array format
+                // Then stored inside $p_price variable
   		while($p_price = mysqli_fetch_array($run_price)){
-				// $p_price variable looks for product IDS
-				// Once it finds them they are stored inside variable $pro_id
+                        // $p_price variable looks for product IDS
+                        // Once it finds them they are stored inside variable $pro_id
   			$pro_id = $p_price['p_id'];
-				// SQL query statement
-				// Select all from products table where product_id is equal to product ID stored in $pro_id variable
+                        // SQL query statement
+                        // Select all from products table where product_id is equal to product ID stored in $pro_id variable
   			$sel_price = "SELECT * FROM products WHERE product_id='$pro_id'";
-				// Run query
+			// Run query
   			$run_pro_price = mysqli_query($con, $sel_price);
-				// Utilizing mysqli built in statement, results are fetched in an array format
-				// Then stored inside $pp_price variable
+			// Utilizing mysqli built in statement, results are fetched in an array format
+			// Then stored inside $pp_price variable
   			while($pp_price = mysqli_fetch_array($run_pro_price)){
-					// Using $pp_price, all the product prices are stored inside an array
-					// This array is then placed stored inside variable $product_price
+                                // Using $pp_price, all the product prices are stored inside an array
+                                // This array is then placed stored inside variable $product_price
   				$product_price = array($pp_price['product_price']);
   				$product_title = $pp_price['product_title'];
   				$product_image = $pp_price['product_image'];
   				$single_price = $pp_price['product_price'];
 
-					$changing_C = "t" . $counter ;
+				$changing_C = "t" . $counter ;
 
   				$values = array_sum($product_price);
 
-					$phpArr[$counter] = $pro_id;
+				$phpArr[$counter] = $pro_id;
 
   		?>
 
-  		<tr align="center">
-  			<td><input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>"></td>
-  			<td><?php echo $product_title; ?><br>
-  			<img src="admin_area/product_images/<?php echo $product_image;?>" width="60" height="60">
-  			</td>
-  			<td ><input id= "<?php echo $changing_C; ?>"  onfocus="myFunction()" onfocusout="myFunction()"
-					type="text" size="3" name="<?php echo $pro_id; ?>"
-					value="<?php $counter = $counter + 1; echo $counter;  ?>"></td>
+<tr align="center">
+    <td><input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>"></td>
+    <td><?php echo $product_title; ?><br>
+    <img src="admin_area/product_images/<?php echo $product_image;?>" width="60" height="60">
+    </td>
+    <td ><input id= "<?php echo $changing_C; ?>"  onfocus="myFunction()" onfocusout="myFunction()"
+    type="text" size="3" name="<?php echo $pro_id; ?>"
+    value="<?php $counter = $counter + 1; echo $counter;  ?>"></td>
 
-					<script>
+<script>
 
-						var arr;
-						for (var z= 0; z < parseInt("<?php echo $counter; ?>"); z++){
-						nword = "item" + z;
-						document.getElementById("t" + z).value = localStorage.getItem(nword);
-					}
-
-
-					function myFunction(){
-						var size = "<?php echo $counter; ?>";
-						var i = 0;
-
-						while  (i< size){
-							var x = document.getElementById("t" + i).value;
-							word = "item" + i;
-							localStorage.setItem(word, x);
-							i++;
-
-						}
-
-					};
-					</script>
-
-	  		<?php
-		  		if(isset($_POST['update_cart'])){
-
-						foreach ( $phpArr as $tableId){
-							$nqty = $_POST[$tableId];
-							$update_stmt = "UPDATE cart SET qty = '$nqty' WHERE p_id='$tableId'";
-							$run_qty = mysqli_query($con, $update_stmt);
-		  			
-					}
-				}
-	  		?>
+        var arr;
+        for (var z= 0; z < parseInt("<?php echo $counter; ?>"); z++){
+        nword = "item" + z;
+        document.getElementById("t" + z).value = localStorage.getItem(nword);
+}
 
 
-  			<td><?php $get_stmt = "SELECT p_id, qty FROM cart";
-				$get_data = mysqli_query($con, $get_stmt); $numEntered = 0;
-				while($row = $get_data->fetch_assoc()) {
-					if($row["p_id"] == $pro_id) {$numEntered = $row["qty"];}
-				}
-				$finCost = $single_price * $numEntered;
-				echo "$" . $finCost; $arrTotal[$counter - 1] = $finCost; ?></td>
+function myFunction(){
+        var size = "<?php echo $counter; ?>";
+        var i = 0;
+
+        while  (i< size){
+                var x = document.getElementById("t" + i).value;
+                word = "item" + i;
+                localStorage.setItem(word, x);
+                i++;
+
+        }
+
+};
+</script>
+
+            <?php
+                if(isset($_POST['update_cart'])){
+
+                    foreach ( $phpArr as $tableId){
+                            $nqty = $_POST[$tableId];
+                            $update_stmt = "UPDATE cart SET qty = '$nqty' WHERE p_id='$tableId'";
+                            $run_qty = mysqli_query($con, $update_stmt);
+
+                    }
+                }
+            ?>
+
+            <td><?php $get_stmt = "SELECT p_id, qty FROM cart";
+                    $get_data = mysqli_query($con, $get_stmt); $numEntered = 0;
+                    while($row = $get_data->fetch_assoc()) {
+                            if($row["p_id"] == $pro_id) {$numEntered = $row["qty"];}
+                    }
+                    $finCost = $single_price * $numEntered;
+                    echo "$" . $finCost; $arrTotal[$counter - 1] = $finCost; ?></td>
   		</tr>
 
   		<?php $total = 0;
@@ -255,25 +259,25 @@ function validateForm() {
 
   // function updatecart(){
 
-			// Utilize global build in keyword to connect to our database
-			global $con;
+                // Utilize global build in keyword to connect to our database
+                global $con;
 
-			// Using SQLFunctions page, getIp() function is used to get and store user IP address
-			$ip = getIp();
-			// If update cart is set, jump into the if-else statement
+                // Using SQLFunctions page, getIp() function is used to get and store user IP address
+                $ip = getIp();
+                // If update cart is set, jump into the if-else statement
 	   	if(isset($_POST['update_cart'])){
 
-					foreach($_POST['remove'] as $remove_id){
-							// Delete from cart table where product_id is equal to $remove_id variable and also where IP address is equal to $ip variable
-							$delete_product = "DELETE FROM cart WHERE p_id='$remove_id' AND ip_add='$ip'";
-							// Run query
-							$run_delete = mysqli_query($con, $delete_product);
-							// If query is succesfull
-							// refresh cart.php page
-							if($run_delete){
-								echo "<script>window.open('cart.php', '_self')</script>";
-							}
-					}
+                    foreach($_POST['remove'] as $remove_id){
+                        // Delete from cart table where product_id is equal to $remove_id variable and also where IP address is equal to $ip variable
+                        $delete_product = "DELETE FROM cart WHERE p_id='$remove_id' AND ip_add='$ip'";
+                        // Run query
+                        $run_delete = mysqli_query($con, $delete_product);
+                        // If query is succesfull
+                        // refresh cart.php page
+                        if($run_delete){
+                                echo "<script>window.open('cart.php', '_self')</script>";
+                        }
+                    }
 	   	}
 			// If continue buttom is clicked
 	   	if(isset($_POST['continue'])){
