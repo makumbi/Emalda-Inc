@@ -107,32 +107,27 @@ function validateForm() {
         <tr>
           <td align="right"> Customer Name:</td>
           <td><input type="text" name="c_name" required></input></td>
-          <span class="error">* <?php echo $c_nameErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer Email:</td>
           <td><input type="text" name="c_email" required></input></td>
-          <span class="error">* <?php echo $c_emailErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer Password:</td>
           <td><input type="password" name="c_pass" required></input></td>
-          <span class="error">* <?php echo $c_passErr;?></span>
           <br><br>
         </tr>
 
         <tr>
           <td align="right">Customer Address:</td>
           <td><input type="text" name="c_address" required></input></td>
-          <span class="error">* <?php echo $c_addressErr;?></span>
         </tr>
 
         <tr>
           <td align="right">Customer City:</td>
           <td><input type="text" name="c_city" required></input></td>
-          <span class="error">* <?php echo $c_cityErr;?></span>
         </tr>
 
         <tr>
@@ -296,30 +291,40 @@ $(document).ready(function(){
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$c_name)) {
         $c_nameErr = "Only letters and white space allowed"; 
+        echo "<script>alert('Please try again! $c_nameErr')</script>";
+        exit();
     }
     
     $c_email = test_input($_POST['c_email']);
     // filter email to validate input
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $c_emailErr = "Invalid email format"; 
+        $c_emailErr = "Invalid email format";
+        echo "<script>alert('Please try again! $c_emailErr')</script>";
+        exit();
     }
     
     $c_pass = test_input($_POST['c_pass']);
     // check for password length
     if (iconv_strlen($c_pass) < 8) {
         $c_passErr = "Password should be longer than 8 characters";
+        echo "<script>alert('Please try again! $c_passErr')</script>";
+        exit();
     }
  
     $c_address = test_input($_POST['c_address']);
     // check if email contains valid chars
     if (!preg_match("/^[a-z0-9-]+$/i",$c_address)) {
         $c_addressErr = "Invalid address"; 
+        echo "<script>alert('Please try again! $c_addressErr')</script>";
+        exit();
     }
     
     $c_city = test_input($_POST['c_city']);
     // check if city name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$c_name)) {
-        $c_cityErr = "Only letters and white space allowed"; 
+        $c_cityErr = "Only letters and white space allowed";
+        echo "<script>alert('Please try again! $c_cityErr')</script>";
+        exit();
     }
     
     $c_country = test_input($_POST['c_country']);
@@ -329,7 +334,9 @@ $(document).ready(function(){
     $c_contact = test_input($_POST['c_contact']);
     // check if city name only contains letters and whitespace
     if (!preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/",$c_contact)) {
-        $c_contactErr = "Please enter a valid phone number"; 
+        $c_contactErr = "Please enter a valid phone number";
+        echo "<script>alert('Please try again! $c_contactErr')</script>";
+        exit();
     }
     
     // Function used to sanitize and validate use input
