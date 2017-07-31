@@ -245,7 +245,7 @@ $c_emailErr = $c_passErr = "";
       // Validate and Sanitize Input
       $c_email = test_input($_POST['email']);
       // filter email to validate input
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      if (!filter_var($c_email, FILTER_VALIDATE_EMAIL)) {
           $c_emailErr = "Invalid email format"; 
           echo "<script>alert('Please try again! $c_emailErr')</script>";
           exit();
