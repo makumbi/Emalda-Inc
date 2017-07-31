@@ -88,35 +88,63 @@ function validateForm() {
 <?php
 
 	if(isset($_SESSION['customer_email'])){
+            // customer email input to be sanitized and validated
+            $user_emailTest = $_SESSION['customer_email'];
+            
+          // Validate and Sanitize Input
+          $user_email = test_input($user_emailTest);
+          // filter email to validate input
+          if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
+              $c_emailErr = "Invalid email format"; 
+              echo "<script>alert('Please try again! $c_emailErr')</script>";
+              exit();
+          }
+            
+            // Function used to sanitize and validate use input
+            function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
+            
+            // Select all from customer table where customer email is equal to user variable
+            $get_img = "SELECT * FROM customers WHERE customer_email=?";
 
-    $user_email = $_SESSION['customer_email'];
-    // Select all from customer table where customer email is equal to user variable
-    $get_img = "SELECT * FROM customers WHERE customer_email='$user_email'";
-    // Run query
-    $run_img = mysqli_query($con, $get_img);
-    // Retrieve rows that meet our search
-    $row_img = mysqli_fetch_array($run_img);
+            if($stmt = $con -> prepare($get_img)){
 
-    // Retrieve customer image
-    $c_image = $row_img['customer_image'];
-    // Retrieve customer name
-    $user_name = $row_img['customer_name'];
-  }
+            // bind parameters
+            $stmt -> bind_param('s', $user_email);
+
+            // execute query
+            $stmt ->execute();
+
+            // get results
+            $result = $stmt -> get_result();
+            // place results inside fetch_array.
+            // loop through until all the prices have been stored to variable $p_price
+            while($row_img = $result -> fetch_array()){
+                // Retrieve customer image
+                $c_image = $row_img['customer_image'];
+                // Retrieve customer name
+                $user_name = $row_img['customer_name'];
+            }
+        }
 ?>
 
 <!--**************************Begin Header*****************************-->
 <header class="header-height">
-		<div class="jumbotron text-center">
-			<div class="position-text">
-				<h2>Welcome: <?php echo $user_name;?></h2>
-				<p>We import fresh foods from African farmers to your door step</p>
-	 			<form class="form-inline" name="userSearch"
-					onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
-					<button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
-				</form>
-			</div>
-		</div>
+    <div class="jumbotron text-center">
+        <div class="position-text">
+            <h2>Welcome: <?php echo $user_name;?></h2>
+            <p>We import fresh foods from African farmers to your door step</p>
+            <form class="form-inline" name="userSearch"
+                    onsubmit="return validateForm()" method="post" action="results.php" enctype="multipart/form-data">
+                    <input type="text" name="user_query" class="form-control" placeholder="Search a product" size="50">
+                    <button type="submit" class="btn btn-danger" name="search" value="Search">Search</button>
+            </form>
+        </div>
+    </div>
 </header><!--**************************End Header*****************************-->
 
 <!--**************************Begin Company Products*****************************-->
@@ -365,4 +393,4 @@ $(document).ready(function(){
 </html>
 <!-- Localized -->
 
-<?php } ?>
+<?php }} ?>
