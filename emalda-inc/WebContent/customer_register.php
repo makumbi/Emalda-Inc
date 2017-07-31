@@ -297,7 +297,7 @@ $(document).ready(function(){
     
     $c_email = test_input($_POST['c_email']);
     // filter email to validate input
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($c_email, FILTER_VALIDATE_EMAIL)) {
         $c_emailErr = "Invalid email format";
         echo "<script>alert('Please try again! $c_emailErr')</script>";
         exit();
@@ -321,7 +321,7 @@ $(document).ready(function(){
     
     $c_city = test_input($_POST['c_city']);
     // check if city name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$c_name)) {
+    if (!preg_match("/^[a-zA-Z ]*$/",$c_city)) {
         $c_cityErr = "Only letters and white space allowed";
         echo "<script>alert('Please try again! $c_cityErr')</script>";
         exit();
