@@ -99,61 +99,57 @@ function validateForm() {
   <div class="products_box">
 
   <div id='single_product'>
-  	<?php
+<?php
 
-		if(isset($_GET['search'])){
+if(isset($_GET['search'])){
 
-		$search = $_GET['user_query'];
-	  $search_query = "%" . $search . "%";
-		// Select all from products where product keywords are like user_query
-		$query = "SELECT * FROM products WHERE product_keywords LIKE ?";
+$search = $_GET['user_query'];
+$search_query = "%" . $search . "%";
+// Select all from products where product keywords are like user_query
+$query = "SELECT * FROM products WHERE product_keywords LIKE ?";
 
-		// Create prepared statement
-		if($stmt = $con -> prepare($query)){
+    // Create prepared statement
+    if($stmt = $con -> prepare($query)){
 
-				// bind parameters for makers
-				$stmt ->bind_param('s', $search_query);
+        // bind parameters for makers
+        $stmt ->bind_param('s', $search_query);
 
-				// execute query
-				$stmt ->execute();
+        // execute query
+        $stmt ->execute();
 
-				// get results
-				$result = $stmt -> get_result();
+        // get results
+        $result = $stmt -> get_result();
 
-				while($row = $result -> fetch_array()){
+        while($row = $result -> fetch_array()){
 
-					$pro_id = $row['product_id'];
-					$pro_title = $row['product_title'];
-					$pro_price = $row['product_price'];
-					$pro_image = $row['product_image'];
-					$pro_desc = $row['product_desc'];
+            $pro_id = $row['product_id'];
+            $pro_title = $row['product_title'];
+            $pro_price = $row['product_price'];
+            $pro_image = $row['product_image'];
+            $pro_desc = $row['product_desc'];
 
+        echo "
+            <h3>$pro_title</h3>
 
-				echo "
+            <img src='admin_area/product_images/$pro_image' width='400' height='300'>
 
+            <p><b>$ $pro_price</b></p>
+            <p>$pro_desc</p>
+            <a href='index.php#products' style='float:left;'>Go Back</a>
+            <a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
 
-						<h3>$pro_title</h3>
+        ";
 
-						<img src='admin_area/product_images/$pro_image' width='400' height='300'>
-
-						<p><b>$ $pro_price</b></p>
-						<p>$pro_desc</p>
-						<a href='index.php#products' style='float:left;'>Go Back</a>
-						<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
-
-
-				";
-
-				}
-				// free results
-				$stmt ->free_result();
-				// close statement
-				$stmt ->close();
-		}
-		// close connection
-		$con -> close();
-}
-	?>
+        }
+        // free results
+        $stmt ->free_result();
+        // close statement
+        $stmt ->close();
+    }
+    // close connection
+    $con -> close();
+    }
+?>
 
 
   </div>
