@@ -17,17 +17,41 @@
 
 <?php
 include('includes/db.php');
+  // Validate and Sanitize Input
+  $userUntrustedInput = $_SESSION['customer_email'];
+ 
+  $user_email = test_input($userUntrustedInput);
+  // filter email to validate input
+  if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
+      $c_emailErr = "Invalid email format"; 
+      echo "<script>alert('Please try again! $c_emailErr')</script>";
+      exit();
+  }
 
-  $user = $_SESSION['customer_email'];
-
+    // Function used to sanitize and validate use input
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+    
   if(isset($_POST['yes'])){
+      
     // Delete from customer table where customer email is equal to user's email
-    $delete_customer = "DELETE FROM customers WHERE customer_email='$user'";
-    // Run the query
-    $run_customer = mysqli_query($con, $delete_customer);
+    $delete_customer = "DELETE FROM customers WHERE customer_email=?";
 
-    echo "<script>alert('We are really sorry your account has been deleted!')</script>";
-    echo "<script>window.open('../index.php', '_self')</script>";
+    if($stmt = $con -> prepare($delete_customer)){
+
+        // bind parameters
+        $stmt -> bind_param('s', $user_email);
+
+        // execute query
+        if($stmt ->execute()){
+            echo "<script>alert('Sorry to have to let you go!')</script>";
+            echo "<script>window.open('../index.php', '_self')</script>";
+        }  
+    }
   }
   elseif(isset($_POST['no'])){
     echo "<script>alert('Oh! That's what I was hoping to hear!')</script>";
