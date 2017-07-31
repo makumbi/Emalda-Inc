@@ -33,17 +33,51 @@
 
 <?php
 if(isset($_POST['change_pass'])){
+    // Inputs needs to be validated
+    $userEmailValidate = $_SESSION['customer_email'];
 
-    $userEmail = $_SESSION['customer_email'];
-
-    $current_pass= $_POST['current_pass'];
-    $new_pass = $_POST['new_pass'];
-    $new_again = $_POST['new_pass_again'];
-
+    $userEmail = test_input($userEmailValidate);
+    // filter email to validate input
+    if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+        $c_emailErr = "Invalid email format";
+        echo "<script>alert('Please try again! $c_emailErr')</script>";
+        exit();
+    }
+    
+    $current_pass = test_input($_POST['current_pass']);
+    // check for password length
+    if (iconv_strlen($current_pass) < 8) {
+        $c_passErr = "Password should be longer than 8 characters";
+        echo "<script>alert('Please try again! $c_passErr')</script>";
+        exit();
+    }  
+    $new_pass = test_input($_POST['new_pass']);
+    // check for password length
+    if (iconv_strlen($new_pass) < 8) {
+        $c_passErr = "Password should be longer than 8 characters";
+        echo "<script>alert('Please try again! $c_passErr')</script>";
+        exit();
+    }
+    $new_again = test_input($_POST['new_pass_again']);
+    // check for password length
+    if (iconv_strlen($new_again) < 8) {
+        $c_passErr = "Password should be longer than 8 characters";
+        echo "<script>alert('Please try again! $c_passErr')</script>";
+        exit();
+    }  
+    // Function used to sanitize and validate use input
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+    
+    // password needs to be salted for added security
     $hash_new_pass = password_hash($new_again, PASSWORD_BCRYPT);
     
     $sel_cust = "SELECT * FROM customers WHERE customer_email=?";
-         echo "<script>alert('{$userEmail}')</script>";       
+           
     // Create prepared statement
     if($stmt = $con -> prepare($sel_cust)){
 
