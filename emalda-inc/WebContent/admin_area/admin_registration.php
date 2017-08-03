@@ -40,15 +40,15 @@ include("includes/db.php");
         $con = mysqli_connect("localhost", "root", "root", "emaldaDB");
 
         if(mysqli_connect_errno()){
-            echo "The connection was not established: " . mysqli_connect_errno();
+            echo "The database connection was not established";
         }          
-        
+        // Validate and sanitize user inputs
         $userEmail = $_POST['email'];
         $passWord = $_POST['password'];   
         
         $email = filter_var($userEmail, FILTER_SANITIZE_STRING);
         $password = filter_var($passWord, FILTER_SANITIZE_STRING);       
-        
+        // hash should be salted
         $hash = password_hash($password, PASSWORD_DEFAULT);
         
         // set SQL statement and execute
